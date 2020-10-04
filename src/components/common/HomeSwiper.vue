@@ -39,7 +39,6 @@
       }
     },
     created() {
-      console.log('////')
     }
   }
 </script>
