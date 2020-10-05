@@ -5,46 +5,21 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <home-swiper :banners="banner"/>
-    <recommend-view :recommends="recommend"/>
-    <feature/>
-    <tab-control class="tab-ctrl"
-                 :titles="['流行','新款','精选']"
-                 @tabClick="tabClick"/>
-    <goods-list :goods=showGoods />
-    <ul>
-      <li>1111</li>
-      <li>2111</li>
-      <li>3111</li>
-      <li>4111</li>
-      <li>5111</li>
-      <li>6111</li>
-      <li>7111</li>
-      <li>8111</li>
-      <li>9111</li>
-      <li>10111</li>
-      <li>11111</li>
-      <li>12111</li>
-      <li>13111</li>
-      <li>14111</li>
-      <li>15111</li>
-      <li>16111</li>
-      <li>17111</li>
-      <li>18111</li>
-      <li>19111</li>
-      <li>20111</li>
-      <li>21111</li>
-      <li>22111</li>
-      <li>23111</li>
-      <li>24111</li>
-      <li>25111</li>
-      <li>26111</li>
-      <li>27111</li>
-      <li>28111</li>
-      <li>29111</li>
-      <li>30111</li>
 
-    </ul>
+    <scroll class="content">
+
+      <template v-slot:default>
+        <home-swiper :banners="banner"/>
+        <recommend-view :recommends="recommend"/>
+        <feature/>
+        <tab-control class="tab-ctrl"
+                     :titles="['流行','新款','精选']"
+                     @tabClick="tabClick"/>
+        <goods-list :goods=showGoods />
+      </template>
+
+    </scroll>
+
   </div>
 </template>
 
@@ -56,10 +31,12 @@
   import Feature from "./childComps/Feature";
   import TabControl from "../../components/content/tabcontrol/TabControl";
   import GoodsList from "../../components/content/goods/GoodsList";
+  import Scroll from "../../components/common/scroll/Scroll";
 
   export default {
     name: "Home",
     components: {
+      Scroll,
       NavBar,
       HomeSwiper,
       RecommendView,
@@ -82,6 +59,7 @@
     created() {
       //1.请求多个数据
       this.getHomeMultidata()
+
       //2.请求商品数据
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
@@ -98,14 +76,14 @@
       tabClick(index){
         switch (index) {
           case 0:
-            this.currentType = 'pop';
-                break;
+            this.currentType = 'pop'
+                break
           case 1:
-            this.currentType = 'new';
-                break;
+            this.currentType = 'new'
+                break
           case 2:
-            this.currentType = 'sell';
-                break;
+            this.currentType = 'sell'
+                break
         }
       },
       // 网络请求相关方法
@@ -128,9 +106,19 @@
 
 <style scoped>
   #home {
-    padding-top: 44px;
+    /*padding-top: 44px;*/
+    height: 100vh;
+    position: relative;
   }
 
+  .content{
+    overflow: hidden;
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
+  }
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;

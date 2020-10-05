@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="nav-bar">
       <van-tabbar id="van-tab-bar" placeholder:ture route v-model="active" active-color="#ff5777" inactive-color="#000">
         <van-tabbar-item  icon="home-o" to="/home">首页</van-tabbar-item>
         <van-tabbar-item  icon="apps-o" to="/category">分类</van-tabbar-item>

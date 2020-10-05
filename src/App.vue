@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <van-tab-bar/>
-    <router-view />
+    <van-tab-bar class="nav-bar"/>
+    <router-view class="router-view" />
   </div>
 
 </template>
@@ -22,5 +22,4 @@ import VanTabBar from "./components/content/tabbar/VanTabBar";
 
 <style>
   @import "./assets/css/base.css";
-
 </style>
