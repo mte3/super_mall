@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app1">
     <van-tab-bar class="nav-bar"/>
     <router-view class="router-view" />
   </div>
@@ -12,7 +12,7 @@
 import VanTabBar from "./components/content/tabbar/VanTabBar";
 
   export default {
-    name: 'app',
+    name: 'app1',
     components:{
       VanTabBar
     }

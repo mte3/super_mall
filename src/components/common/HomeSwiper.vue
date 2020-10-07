@@ -1,6 +1,6 @@
 <template>
   <van-swipe :autoplay="3000">
-    <van-swipe-item v-for="item in banners">
+    <van-swipe-item v-for="(item,index) in banners" :key="index">
       <a :href="item.link">
         <img :src="item.image" style="width: 100%"/>
       </a>
@@ -11,7 +11,6 @@
 
 <script>
   import {Swipe, SwipeItem} from 'vant';
-  import {Lazyload} from 'vant';
 
   export default {
     name: "HomeSwiper",

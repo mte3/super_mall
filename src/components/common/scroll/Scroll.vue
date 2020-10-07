@@ -1,46 +1,39 @@
 <template>
 
-<div ref="wrapper" class="all-wrapper">
-  <div class="content">
-    <slot></slot>
+  <div class="wrapper" ref="wrapper">
+    <div class="content">
+      <slot></slot>
+    </div>
+
   </div>
-</div>
 
 </template>
 
 <script>
   import BScroll from 'better-scroll'
 
-    export default {
-        name: "Scroll",
-      data(){
-          return {
-            scroll:null
-          }
-      },
-      mounted() {
-          this.scroll = new BScroll(this.$refs.wrapper,{
-            probeType:3,
-            pullUpLoad:true,
-            click:true,
-          })
-
-        this.scroll.on('scroll',(position) => {
-          //监听滑动位置
-          // console.log(position)
-        })
-
-        this.scroll.on('pullingUp',() =>{
-          // console.log('上拉加载更多');
-          setTimeout(() => {
-            this.scroll.finishPullUp()
-          },3000)
-        })
-      },
-
-    }
+  export default {
+    name: "Scroll",
+    data() {
+      return {
+        scroll: null
+      }
+    },
+    updated() {
+      setTimeout(() => {
+        this.scroll = new BScroll(this.$refs.wrapper, {
+          mouseWheel: true,//开启鼠标滚动
+          click: true,//开启点击效果
+          probeType:3,//监听滑动位置
+          pullUpLoad:true//下拉刷新，上拉加载
+        });
+      },200)
+    },
+  }
 </script>
 
 <style scoped>
 
 </style>
+
+

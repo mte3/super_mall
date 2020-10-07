@@ -6,32 +6,35 @@
       </template>
     </nav-bar>
 
-    <scroll class="content">
 
-      <template v-slot:default>
-        <home-swiper :banners="banner"/>
-        <recommend-view :recommends="recommend"/>
-        <feature/>
-        <tab-control class="tab-ctrl"
-                     :titles="['流行','新款','精选']"
-                     @tabClick="tabClick"/>
-        <goods-list :goods=showGoods />
-      </template>
+<scroll class="wrapper">
 
-    </scroll>
+    <home-swiper :banners="banner"/>
+    <recommend-view :recommends="recommend"/>
+    <feature/>
+    <tab-control class="tab-ctrl"
+                 :titles="['流行','新款','精选']"
+                 @tabClick="tabClick"/>
+    <goods-list :goods="showGoods"/>
+
+
+
+</scroll>
 
   </div>
 </template>
 
 <script>
-  import NavBar from "../../components/common/navbar/NavBar";
   import {getHomeMultidata, getHomeGoods} from "../../network/home";
+
+  import NavBar from "../../components/common/navbar/NavBar";
   import HomeSwiper from "../../components/common/HomeSwiper";
-  import RecommendView from "./childComps/RecommendView";
-  import Feature from "./childComps/Feature";
   import TabControl from "../../components/content/tabcontrol/TabControl";
   import GoodsList from "../../components/content/goods/GoodsList";
   import Scroll from "../../components/common/scroll/Scroll";
+
+  import RecommendView from "./childComps/RecommendView";
+  import Feature from "./childComps/Feature";
 
   export default {
     name: "Home",
@@ -46,6 +49,7 @@
     },
     data() {
       return {
+        scroll: null,
         banner: [],
         recommend: [],
         goods: {
@@ -53,37 +57,39 @@
           'new': {page: 0, list: []},
           'sell': {page: 0, list: []},
         },
-        currentType:'pop'
+        currentType: 'pop'
       }
+    },
+    mounted() {
+
     },
     created() {
       //1.请求多个数据
-      this.getHomeMultidata()
-
+      this.getHomeMultidata();
       //2.请求商品数据
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
     },
-    computed:{
-      showGoods(){
+    computed: {
+      showGoods() {
         //父传子--goods
         return this.goods[this.currentType].list
       }
     },
     methods: {
       //事件监听相关方法
-      tabClick(index){
+      tabClick(index) {
         switch (index) {
           case 0:
             this.currentType = 'pop'
-                break
+            break
           case 1:
             this.currentType = 'new'
-                break
+            break
           case 2:
             this.currentType = 'sell'
-                break
+            break
         }
       },
       // 网络请求相关方法
@@ -106,19 +112,21 @@
 
 <style scoped>
   #home {
-    /*padding-top: 44px;*/
     height: 100vh;
+    padding-top: 44px;
     position: relative;
   }
-
-  .content{
+  .wrapper {
     overflow: hidden;
+    width: 100%;
     position: absolute;
     top: 44px;
     bottom: 49px;
     left: 0;
     right: 0;
   }
+
+
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;
