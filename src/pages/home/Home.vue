@@ -6,20 +6,23 @@
       </template>
     </nav-bar>
 
+    <scroll class="wrapper"
+            ref="scroll" :probe-type="3"
+            @scroll="contentScroll"
+            :pull-up-load="true"
+            @pullingUp = 'LoadMore'>
 
-<scroll class="wrapper">
+      <home-swiper :banners="banner"/>
+      <recommend-view :recommends="recommend"/>
+      <feature/>
+      <tab-control class="tab-ctrl"
+                   :titles="['流行','新款','精选']"
+                   @tabClick="tabClick"/>
+      <goods-list :goods="showGoods"/>
 
-    <home-swiper :banners="banner"/>
-    <recommend-view :recommends="recommend"/>
-    <feature/>
-    <tab-control class="tab-ctrl"
-                 :titles="['流行','新款','精选']"
-                 @tabClick="tabClick"/>
-    <goods-list :goods="showGoods"/>
+    </scroll>
 
-
-
-</scroll>
+    <back-top @click.native="backTop" v-show="isShowBackTop"/>
 
   </div>
 </template>
@@ -32,6 +35,7 @@
   import TabControl from "../../components/content/tabcontrol/TabControl";
   import GoodsList from "../../components/content/goods/GoodsList";
   import Scroll from "../../components/common/scroll/Scroll";
+  import BackTop from "../../components/content/backTop/BackTop";
 
   import RecommendView from "./childComps/RecommendView";
   import Feature from "./childComps/Feature";
@@ -39,6 +43,7 @@
   export default {
     name: "Home",
     components: {
+      BackTop,
       Scroll,
       NavBar,
       HomeSwiper,
@@ -49,6 +54,7 @@
     },
     data() {
       return {
+        isShowBackTop:false,
         scroll: null,
         banner: [],
         recommend: [],
@@ -59,9 +65,6 @@
         },
         currentType: 'pop'
       }
-    },
-    mounted() {
-
     },
     created() {
       //1.请求多个数据
@@ -79,6 +82,21 @@
     },
     methods: {
       //事件监听相关方法
+      LoadMore(){
+        //上拉加载更多
+        this.getHomeGoods(this.currentType)
+        this.$refs.scroll.scroll.refresh()
+      },
+
+      contentScroll(position){
+        //是否显示返回顶部按钮
+        this.isShowBackTop = (-position.y) > 1000
+      },
+      backTop(){
+        //点击回到顶部
+        this.$refs.scroll.scrollTo()
+      },
+
       tabClick(index) {
         switch (index) {
           case 0:
@@ -92,6 +110,7 @@
             break
         }
       },
+
       // 网络请求相关方法
       getHomeMultidata() {
         getHomeMultidata().then(res => {
@@ -104,6 +123,8 @@
         getHomeGoods(type, page).then(res => {
           this.goods[type].list.push(...res.data.list);
           this.goods[type].page += 1
+
+          this.$refs.scroll.finishPullUp()
         })
       }
     }
@@ -113,10 +134,12 @@
 <style scoped>
   #home {
     height: 100vh;
-    padding-top: 44px;
+    /*padding-top: 44px;*/
     position: relative;
   }
+
   .wrapper {
+    /*方案一*/
     overflow: hidden;
     width: 100%;
     position: absolute;
@@ -124,6 +147,11 @@
     bottom: 49px;
     left: 0;
     right: 0;
+
+    /*!*方案二*!*/
+    /*height: calc(100%-93px);*/
+    /*overflow: hidden;*/
+    /*margin-top: 44px;*/
   }
 
 
