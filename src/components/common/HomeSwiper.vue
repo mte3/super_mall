@@ -2,7 +2,7 @@
   <van-swipe :autoplay="3000">
     <van-swipe-item v-for="(item,index) in banners" :key="index">
       <a :href="item.link">
-        <img :src="item.image" style="width: 100%"/>
+        <img :src="item.image" style="width: 100%" @load="imageLoad"/>
       </a>
     </van-swipe-item>
   </van-swipe>
@@ -19,7 +19,19 @@
       [SwipeItem.name]: SwipeItem,
 
     },
-    methods: {},
+    data(){
+      return {
+        isLoad:false
+      }
+    },
+    methods: {
+      imageLoad(){
+        if(!this.isLoad){
+          this.$emit('swipeImageLoad')
+          this.isLoad=true
+        }
+      }
+    },
     props: {
       banners: {
         type: Array,

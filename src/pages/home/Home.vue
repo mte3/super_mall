@@ -6,16 +6,24 @@
       </template>
     </nav-bar>
 
+    <tab-control
+      ref="tabControl1"
+      :titles="['流行','新款','精选']"
+      @tabClick="tabClick" class="tab-control"
+      v-show="isShowTabControl"/>
+
     <scroll class="wrapper"
-            ref="scroll" :probe-type="3"
+            ref="scroll"
+            :probe-type="3"
             @scroll="contentScroll"
             :pull-up-load="true"
             @pullingUp = 'LoadMore'>
 
-      <home-swiper :banners="banner"/>
+      <home-swiper :banners="banner" @swipeImageLoad = 'swipeImageLoad'/>
       <recommend-view :recommends="recommend"/>
       <feature/>
       <tab-control
+        ref="tabControl"
         :titles="['流行','新款','精选']"
         @tabClick="tabClick"/>
       <goods-list :goods="showGoods"/>
@@ -54,6 +62,7 @@
     },
     data() {
       return {
+        tabOffsetTop:0,
         isShowBackTop:false,
         scroll: null,
         banner: [],
@@ -63,8 +72,11 @@
           'new': {page: 0, list: []},
           'sell': {page: 0, list: []},
         },
-        currentType: 'pop'
+        currentType: 'pop',
+        isShowTabControl:false
       }
+    },
+    mounted() {
     },
     created() {
       //1.请求多个数据
@@ -87,16 +99,28 @@
     },
     methods: {
       //事件监听相关方法
+      swipeImageLoad(){
+        //获取tabControl的offsetTop
+        this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
+        console.log(this.tabOffsetTop)
+      },
+
       LoadMore(){
         //上拉加载更多
         this.getHomeGoods(this.currentType)
-        //重新计数滑动高度
+        //重新计数可滑动高度
         this.$refs.scroll.refresh()
       },
 
       contentScroll(position){
         //是否显示返回顶部按钮
-        this.isShowBackTop = (-position.y) > 1000
+        this.isShowBackTop = (-position.y) > 1000;
+
+        //tabControl是否吸顶
+        this.isShowTabControl = (position.y) < -this.tabOffsetTop
+        console.log( this.isShowTabControl)
+        console.log(this.tabOffsetTop)
+        console.log(position)
       },
       backTop(){
         //点击回到顶部
@@ -115,6 +139,8 @@
             this.currentType = 'sell'
             break
         }
+        this.$refs.tabControl1.cuechange = index;
+        this.$refs.tabControl.cuechange = index;
       },
 
       // 网络请求相关方法
@@ -159,16 +185,18 @@
     /*overflow: hidden;*/
     /*margin-top: 44px;*/
   }
-
-
+  .tab-control{
+    position: relative;
+    z-index: 9;
+  }
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9;
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*z-index: 9;*/
   }
 
 </style>
