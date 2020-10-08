@@ -9,6 +9,7 @@
 
 </template>
 
+<!--滑动组件-->
 <script>
   import BScroll from 'better-scroll'
 
@@ -30,12 +31,18 @@
       }
     },
     methods:{
-      scrollTo(x=0,y=0,time=300){
+
+      refresh(){
+        // 重新计数滑动高度
+        this.scroll && this.scroll.refresh()
+      },
+
+      scrollTo(x=0,y=0,time=500){
         //滑动位置
-        this.scroll.scrollTo(x,y,time)
+        this.scroll && this.scroll.scrollTo(x,y,time)
       },
       finishPullUp(){
-        this.scroll.finishPullUp();
+        this.scroll && this.scroll.finishPullUp();
       }
     },
     updated() {
@@ -48,14 +55,18 @@
         });
 
         //监听滑动位置，/是否显示返回顶部按钮
-        this.scroll.on('scroll',(position) => {
-          this.$emit('scroll',position)
-        });
+        if(this.probeType == 2 || this.probeType == 3){
+          this.scroll.on('scroll',(position) => {
+            this.$emit('scroll',position)
+          });
+        }
 
         //监听上拉 / 上拉加载更多
-        this.scroll.on('pullingUp',() => {
-          this.$emit('pullingUp')
-        })
+        if(this.pullUpLoad){
+          this.scroll.on('pullingUp',() => {
+            this.$emit('pullingUp')
+          })
+        }
 
       },200)
     },

@@ -4,8 +4,10 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import Vue from 'vue';
-import { Lazyload } from 'vant';
 
-createApp(App).use(store).use(router).use(Lazyload).mount('#app');
+
+// Vue.prototype.$bus = new Vue()
+
+createApp(App).use(store).use(router).mount('#app');
 ////gitlab
 

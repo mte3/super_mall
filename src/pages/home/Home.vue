@@ -15,9 +15,9 @@
       <home-swiper :banners="banner"/>
       <recommend-view :recommends="recommend"/>
       <feature/>
-      <tab-control class="tab-ctrl"
-                   :titles="['流行','新款','精选']"
-                   @tabClick="tabClick"/>
+      <tab-control
+        :titles="['流行','新款','精选']"
+        @tabClick="tabClick"/>
       <goods-list :goods="showGoods"/>
 
     </scroll>
@@ -73,6 +73,11 @@
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
+
+      //3.监听item图片加载完成
+      // this.$bus.$on('itemImageLoad',() => {
+      //   console.log('-------')
+      // })
     },
     computed: {
       showGoods() {
@@ -85,7 +90,8 @@
       LoadMore(){
         //上拉加载更多
         this.getHomeGoods(this.currentType)
-        this.$refs.scroll.scroll.refresh()
+        //重新计数滑动高度
+        this.$refs.scroll.refresh()
       },
 
       contentScroll(position){
@@ -124,6 +130,7 @@
           this.goods[type].list.push(...res.data.list);
           this.goods[type].page += 1
 
+          //多次上拉加载更多
           this.$refs.scroll.finishPullUp()
         })
       }
@@ -137,7 +144,6 @@
     /*padding-top: 44px;*/
     position: relative;
   }
-
   .wrapper {
     /*方案一*/
     overflow: hidden;
@@ -165,9 +171,4 @@
     z-index: 9;
   }
 
-  .tab-ctrl {
-    position: sticky;
-    top: 44px;
-    z-index: 9;
-  }
 </style>
