@@ -45,7 +45,7 @@
         this.scroll && this.scroll.finishPullUp();
       }
     },
-    updated() {
+    mounted() {
       setTimeout(() => {
         this.scroll = new BScroll(this.$refs.wrapper, {
           // mouseWheel: true, //开启鼠标滚动

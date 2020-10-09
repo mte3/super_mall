@@ -19,7 +19,7 @@
             :pull-up-load="true"
             @pullingUp = 'LoadMore'>
 
-      <home-swiper :banners="banner" @swipeImageLoad = 'swipeImageLoad'/>
+      <swipe :swipe="banner" :swipe-time="1500"/>
       <recommend-view :recommends="recommend"/>
       <feature/>
       <tab-control
@@ -39,7 +39,7 @@
   import {getHomeMultidata, getHomeGoods} from "../../network/home";
 
   import NavBar from "../../components/common/navbar/NavBar";
-  import HomeSwiper from "../../components/common/HomeSwiper";
+  import Swipe from "../../components/common/swiper/Swipe";
   import TabControl from "../../components/content/tabcontrol/TabControl";
   import GoodsList from "../../components/content/goods/GoodsList";
   import Scroll from "../../components/common/scroll/Scroll";
@@ -51,10 +51,10 @@
   export default {
     name: "Home",
     components: {
+      Swipe,
       BackTop,
       Scroll,
       NavBar,
-      HomeSwiper,
       RecommendView,
       Feature,
       TabControl,
@@ -111,16 +111,12 @@
         //重新计数可滑动高度
         this.$refs.scroll.refresh()
       },
-
       contentScroll(position){
         //是否显示返回顶部按钮
         this.isShowBackTop = (-position.y) > 1000;
 
         //tabControl是否吸顶
         this.isShowTabControl = (position.y) < -this.tabOffsetTop
-        console.log( this.isShowTabControl)
-        console.log(this.tabOffsetTop)
-        console.log(position)
       },
       backTop(){
         //点击回到顶部
@@ -139,8 +135,8 @@
             this.currentType = 'sell'
             break
         }
-        this.$refs.tabControl1.cuechange = index;
-        this.$refs.tabControl.cuechange = index;
+        this.$refs.tabControl1.currentIndex = index;
+        this.$refs.tabControl.currentIndex = index;
       },
 
       // 网络请求相关方法
@@ -192,11 +188,6 @@
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;
-    /*position: fixed;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*right: 0;*/
-    /*z-index: 9;*/
   }
 
 </style>
