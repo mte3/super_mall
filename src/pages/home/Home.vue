@@ -7,7 +7,7 @@
     </nav-bar>
 
     <tab-control
-      ref="tabControl1"
+      ref="tabControlFirst"
       :titles="['流行','新款','精选']"
       @tabClick="tabClick" class="tab-control"
       v-show="isShowTabControl"/>
@@ -17,9 +17,10 @@
             :probe-type="3"
             @scroll="contentScroll"
             :pull-up-load="true"
-            @pullingUp = 'LoadMore'>
+            @pullingUp='LoadMore'>
 
-      <swipe :swipe="banner" :swipe-time="1500"/>
+      <swipe :swipe="banner" :swipe-time="1500"
+             @swipeImageLoad="swipeImageLoad"/>
       <recommend-view :recommends="recommend"/>
       <feature/>
       <tab-control
@@ -62,8 +63,9 @@
     },
     data() {
       return {
-        tabOffsetTop:0,
-        isShowBackTop:false,
+        topHeight:0,
+        tabOffsetTop: 0,
+        isShowBackTop: false,
         scroll: null,
         banner: [],
         recommend: [],
@@ -73,10 +75,8 @@
           'sell': {page: 0, list: []},
         },
         currentType: 'pop',
-        isShowTabControl:false
+        isShowTabControl: false
       }
-    },
-    mounted() {
     },
     created() {
       //1.请求多个数据
@@ -86,39 +86,40 @@
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
 
-      //3.监听item图片加载完成
-      // this.$bus.$on('itemImageLoad',() => {
-      //   console.log('-------')
-      // })
     },
     computed: {
       showGoods() {
         //父传子--goods
         return this.goods[this.currentType].list
-      }
+      },
+    },
+    mounted() {
+
     },
     methods: {
       //事件监听相关方法
+
       swipeImageLoad(){
-        //获取tabControl的offsetTop
+        //获取tabControl的offsetTop(距离顶部高度)
         this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
-        console.log(this.tabOffsetTop)
       },
 
-      LoadMore(){
+      LoadMore() {
         //上拉加载更多
         this.getHomeGoods(this.currentType)
         //重新计数可滑动高度
         this.$refs.scroll.refresh()
       },
-      contentScroll(position){
+
+      contentScroll(position) {
         //是否显示返回顶部按钮
         this.isShowBackTop = (-position.y) > 1000;
 
         //tabControl是否吸顶
-        this.isShowTabControl = (position.y) < -this.tabOffsetTop
+        this.isShowTabControl = (-position.y) > this.tabOffsetTop
       },
-      backTop(){
+
+      backTop() {
         //点击回到顶部
         this.$refs.scroll.scrollTo()
       },
@@ -135,7 +136,7 @@
             this.currentType = 'sell'
             break
         }
-        this.$refs.tabControl1.currentIndex = index;
+        this.$refs.tabControlFirst.currentIndex = index;
         this.$refs.tabControl.currentIndex = index;
       },
 
@@ -166,6 +167,7 @@
     /*padding-top: 44px;*/
     position: relative;
   }
+
   .wrapper {
     /*方案一*/
     overflow: hidden;
@@ -181,10 +183,12 @@
     /*overflow: hidden;*/
     /*margin-top: 44px;*/
   }
-  .tab-control{
+
+  .tab-control {
     position: relative;
     z-index: 9;
   }
+
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;

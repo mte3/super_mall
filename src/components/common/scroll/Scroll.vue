@@ -31,12 +31,10 @@
       }
     },
     methods:{
-
       refresh(){
         // 重新计数滑动高度
         this.scroll && this.scroll.refresh()
       },
-
       scrollTo(x=0,y=0,time=500){
         //滑动位置
         this.scroll && this.scroll.scrollTo(x,y,time)

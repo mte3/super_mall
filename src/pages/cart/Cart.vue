@@ -1,14 +1,13 @@
 <template>
   <div>
-    <h2>购物车</h2>
-    <swipe :swipe="swipe" :swipe-time="1500"/>
+
+    <swipe :swipe="swipe" :swipe-time="1500" :is-show-icon="true"/>
   </div>
 </template>
 
 <script>
   import Swipe from "../../components/common/swiper/Swipe";
   import {getImage} from "../../network/cart";
-  import {getHomeMultidata} from "../../network/home";
 
   export default {
         name: "Cart",
