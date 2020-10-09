@@ -7,12 +7,12 @@
              style="width: 100%"
              v-show="showIndex ==index"
              :key="index"
-             @onmouseover="clearGoSwipe"
-             @mouseleave="goSwipe" @load="imageLoad">
+             @touchstart="clearGoSwipe"
+             @touchend="goSwipe" @load="imageLoad">
       </a>
     </div>
     <div class="swipeIcon"
-         v-show="isShowIcon" @onmouseover="clearGoSwipe"
+         v-show="isShowIcon" @touchstart="clearGoSwipe"
          @mouseleave="goSwipe">
       <div @click="sub" class="iconLeft" :style="{top:-iconHeight1*2+'px'}">{{icon.left}}</div>
       <div @click="add" class="iconRight" :style="{top:-iconHeight1*2+'px'}">{{icon.right}}</div>
