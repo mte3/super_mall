@@ -63,6 +63,7 @@
     },
     data() {
       return {
+         saveY:0,//离开页面时记录页面滚动Y值
         topHeight:0,
         tabOffsetTop: 0,
         isShowBackTop: false,
@@ -75,17 +76,17 @@
           'sell': {page: 0, list: []},
         },
         currentType: 'pop',
-        isShowTabControl: false
+        isShowTabControl: false,
+        tabHeight:{
+           'pop':{height:0},
+           'new':{height:0},
+           'sell':{height:0},
+        },
       }
     },
     created() {
       //1.请求多个数据
       this.getHomeMultidata();
-      //2.请求商品数据
-      this.getHomeGoods('pop')
-      this.getHomeGoods('new')
-      this.getHomeGoods('sell')
-
     },
     computed: {
       showGoods() {
@@ -93,8 +94,22 @@
         return this.goods[this.currentType].list
       },
     },
-    mounted() {
+    updated() {
+      if(this.isShowTabControl){
+        this.tabHeight['pop','sell','new'].height = this.tabOffsetTop
+        console.log(this.tabHeight['pop','sell','new'].height)
+      }
+      this.tabHeight[this.currentType].height = this.$refs.scroll.getScrollY()
+    },
 
+    activated() {
+      // 页面路由活跃时调用
+      this.$refs.scroll.scrollTo(0,this.saveY,0)
+      this.$refs.scroll.refresh()
+    },
+    deactivated() {
+      // 页面路由不活跃时调用
+      this.saveY = this.$refs.scroll.getScrollY()
     },
     methods: {
       //事件监听相关方法
@@ -136,8 +151,12 @@
             this.currentType = 'sell'
             break
         }
-        this.$refs.tabControlFirst.currentIndex = index;
-        this.$refs.tabControl.currentIndex = index;
+        this.$nextTick(()=>{
+          this.$refs.scroll.scrollTo(0,this.tabHeight[this.currentType].height,0)
+          this.$refs.scroll.refresh()
+          this.$refs.tabControlFirst.currentIndex = index;
+          this.$refs.tabControl.currentIndex = index;
+        })
       },
 
       // 网络请求相关方法

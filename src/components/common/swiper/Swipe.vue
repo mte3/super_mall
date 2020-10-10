@@ -85,7 +85,6 @@
             this.showIndex = 0
           }
         }, this.swipeTime);
-        console.log(this.swiper);
       },
       clearGoSwipe() {
         //清楚计时器（鼠标在轮播图上）
@@ -110,7 +109,6 @@
       this.goSwipe()
       this.getIconHeight()
       this.getIconHeight1()
-      console.log(this.iconHeight1)
     },
   }
 </script>
