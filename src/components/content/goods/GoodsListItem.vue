@@ -1,11 +1,12 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item" @click="handelGood">
     <img :src="goodsItem.show.img" alt="" >
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
       <span class="collect">{{goodsItem.cfav}}</span>
     </div>
+
   </div>
 </template>
 
@@ -20,13 +21,18 @@
         }
       }
     },
-
     // @load="imageLoad"
     // methods:{
     //   imageLoad(){
     //     this.$bus.$emit('itemImageLoad')
     //   }
     // }
+
+    methods:{
+      handelGood(){
+        this.$router.push('/detail/'+this.goodsItem.iid)
+      }
+    }
   }
 </script>
 

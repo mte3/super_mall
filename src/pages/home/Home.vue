@@ -63,8 +63,8 @@
     },
     data() {
       return {
-         saveY:0,//离开页面时记录页面滚动Y值
-        topHeight:0,
+        saveY: 0,//离开页面时记录页面滚动Y值
+        topHeight: 0,
         tabOffsetTop: 0,
         isShowBackTop: false,
         scroll: null,
@@ -77,16 +77,21 @@
         },
         currentType: 'pop',
         isShowTabControl: false,
-        tabHeight:{
-           'pop':{height:0},
-           'new':{height:0},
-           'sell':{height:0},
-        },
+        // tabHeight: {
+        //   'pop': {height: 0},
+        //   'new': {height: 0},
+        //   'sell': {height: 0},
+        // },
       }
     },
     created() {
       //1.请求多个数据
       this.getHomeMultidata();
+
+      // 2.请求商品数据
+      this.getHomeGoods('pop')
+      this.getHomeGoods('new')
+      this.getHomeGoods('sell')
     },
     computed: {
       showGoods() {
@@ -94,17 +99,9 @@
         return this.goods[this.currentType].list
       },
     },
-    updated() {
-      if(this.isShowTabControl){
-        this.tabHeight['pop','sell','new'].height = this.tabOffsetTop
-        console.log(this.tabHeight['pop','sell','new'].height)
-      }
-      this.tabHeight[this.currentType].height = this.$refs.scroll.getScrollY()
-    },
-
     activated() {
       // 页面路由活跃时调用
-      this.$refs.scroll.scrollTo(0,this.saveY,0)
+      this.$refs.scroll.scrollTo(0, this.saveY, 0)
       this.$refs.scroll.refresh()
     },
     deactivated() {
@@ -114,7 +111,7 @@
     methods: {
       //事件监听相关方法
 
-      swipeImageLoad(){
+      swipeImageLoad() {
         //获取tabControl的offsetTop(距离顶部高度)
         this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
       },
@@ -151,9 +148,7 @@
             this.currentType = 'sell'
             break
         }
-        this.$nextTick(()=>{
-          this.$refs.scroll.scrollTo(0,this.tabHeight[this.currentType].height,0)
-          this.$refs.scroll.refresh()
+        this.$nextTick(() => {
           this.$refs.tabControlFirst.currentIndex = index;
           this.$refs.tabControl.currentIndex = index;
         })
@@ -163,6 +158,7 @@
       getHomeMultidata() {
         getHomeMultidata().then(res => {
           this.banner = res.data.banner.list;
+          console.log(res.data.banner.list)
           this.recommend = res.data.recommend.list;
         })
       },

@@ -1,15 +1,8 @@
 <template>
   <div id="app1">
     <van-tab-bar class="nav-bar"/>
-
-<!--    <keep-alive>-->
-
-<!--      <router-view class="router-view"/>-->
-
-<!--    </keep-alive>-->
-
     <router-view v-slot="{ Component }">
-      <keep-alive>
+      <keep-alive exclude="Detail">
         <component :is="Component" />
       </keep-alive>
     </router-view>

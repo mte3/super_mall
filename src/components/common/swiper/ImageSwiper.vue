@@ -1,17 +1,16 @@
 <template>
-  <div id="swipe">
-    <div class="swipe" v-for="(i,index) in swipe">
-      <a :href="i.link">
-        <img :src="i.image" alt=""
-             ref="swipe"
-             v-show="showIndex === index"
-             :key="index"
-             @touchstart="clearGoSwipe"
-             @touchend="goSwipe" @load="imageLoad">
-      </a>
+  <div id="imageSwipe">
+    <div class="imageSwipe" v-for="(i,index) in imageSwipe">
+      <img :src="i" alt=""
+           ref="swipe"
+           class="swipeImage"
+           v-show="showIndex ==index"
+           :key="index"
+           @touchstart="clearGoSwipe"
+           @touchend="goSwipe" @load="imageLoad">
     </div>
     <div class="spanList" ref="spanList">
-      <div class="list" v-for="(o,i) in swipe" :key="i"
+      <div class="list" v-for="(o,i) in imageSwipe" :key="i"
            :class="showIndex === i? 'active' : '' ">
       </div>
     </div>
@@ -20,9 +19,9 @@
 
 <script>
   export default {
-    name: "Swipe",
+    name: "ImageSwiper",
     props: {
-      swipe: {
+      imageSwipe: {
         type: Array,
         default: []
       },
@@ -33,15 +32,11 @@
     },
     data() {
       return {
-        moveRatio:0,
-        totalWidth: 0,
+        iconHeight: 0,//轮播图指示器距离顶部高度
+        swipeHeight: 0, //轮播图高度
         showIndex: 0,
-        swiper: null,
-        isLoad: true,
-        scrolling: false, // 是否正在滚动
-        startX:0 ,//开始位置
-        endX:0,
-        X:0
+        imageSwiper: null,
+        isLoad: true
       }
     },
     methods: {
@@ -54,16 +49,16 @@
       },
       goSwipe() {
         //轮播图计时器
-        this.swiper = setInterval(() => {
+        this.imageSwiper = setInterval(() => {
           this.showIndex++;
-          if (this.showIndex === this.swipe.length) {
+          if (this.showIndex === this.imageSwipe.length) {
             this.showIndex = 0
           }
         }, this.swipeTime);
       },
       clearGoSwipe() {
         //清楚计时器（鼠标在轮播图上）
-        clearInterval(this.swiper)
+        clearInterval(this.imageSwiper)
       },
     },
     mounted() {
@@ -73,15 +68,16 @@
 </script>
 
 <style scoped>
-  .swipe img{
+  .swipeImage {
     width: 100%;
   }
 
-  #swipe{
+  #imageSwipe{
+    height: 300px;
     position: relative;
     overflow: hidden;
   }
-  .swipe{
+  .imageSwipe{
     display: flex;
   }
   .list {
@@ -100,6 +96,7 @@
     width: 100%;
     bottom: 8px;
   }
+
   .active {
     background-color: #ff5777;
   }

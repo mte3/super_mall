@@ -61,7 +61,7 @@
             this.$emit('scroll',position)
           });
         }
-
+        this.refresh();
         //监听上拉 / 上拉加载更多
         if(this.pullUpLoad){
           this.scroll.on('pullingUp',() => {

@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <swipe :swipe="swipe" :swipe-time="1500" :is-show-icon="true"/>
+    <swipe :swipe="swipe" :swipe-time="1500"/>
   </div>
 </template>
 
