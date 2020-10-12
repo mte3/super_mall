@@ -158,7 +158,6 @@
       getHomeMultidata() {
         getHomeMultidata().then(res => {
           this.banner = res.data.banner.list;
-          console.log(res.data.banner.list)
           this.recommend = res.data.recommend.list;
         })
       },

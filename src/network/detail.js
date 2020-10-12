@@ -20,18 +20,18 @@ export class Goods {
     this.discount = itemInfo.discount;
     this.columns = columns;//商品销量（array）
     this.services = services;//商品保障(array)
-
     this.realPrice = itemInfo.lowNowPrice;
   }
 }
 
-export class GoodsParam{
-  constructor(info,rule) {
-    this.image = info.images ? info.images[0] : '';
-    this.infos = info.set;
-    this.sizes = rule.tables;
-  }
-}
+// export class GoodsParam{
+//   constructor(info,rule) {
+//     this.image = info.images ? info.images[0] : '';
+//     this.infos = info.set;
+//     this.key1 = info.key
+//     this.sizes = rule.tables[0];
+//   }
+// }
 
 export class Shop {
   constructor(shopInfo) {
@@ -43,7 +43,13 @@ export class Shop {
     this.url = shopInfo.shopUrl;//商店地址
     this.score = shopInfo.score;//商店描述（array）
     this.goodsCount = shopInfo.goodsCount;
-
   }
+}
 
+export class GoodsParam{
+  constructor(rule) {
+    this.text = rule.disclaimer
+    this.title = rule.key
+    this.rules = rule.tables
+  }
 }

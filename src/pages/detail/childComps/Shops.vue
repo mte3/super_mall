@@ -57,18 +57,13 @@
   #shop {
     padding: 0 12px 12px 12px;
   }
-
-  /*.shop {*/
-  /*  padding-bottom: 12px;*/
-  /*}*/
-
   .shopT {
     display: flex;
   }
 
   .shopMid {
     flex: 1;
-    padding: 12px 0 8px 6px;
+    padding: 12px 0 12px 6px;
 
   }
   .come {
@@ -92,7 +87,8 @@
   }
 
   .underLeft {
-    padding-top: 24px;
+    text-align: center;
+    padding: 24px 12px 0 0 ;
     border-right: solid 2px #d4ccc6;
     flex: 2;
     display: flex;
@@ -117,7 +113,6 @@
   }
 
   .fans {
-    text-align: center;
     flex: 1;
   }
 

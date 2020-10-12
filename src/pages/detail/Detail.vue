@@ -1,13 +1,17 @@
 <template>
   <div id="detail">
     <detail-nav-bar class="detail"/>
-    <Scroll id="scroll" ref="detailScroll" >
+    <Scroll
+      @pullingUp='LoadMore'
+      id="scroll"
+      ref="detail" >
       <div class="imageSwipe">
         <image-swiper :image-swipe="topImages" :swipe-time="2000"/>
       </div>
       <good :goods="goods"/>
       <shops :shop="shop"/>
       <detail-info :detailInfo="detailInfo" :img="img" @imageLoad="imageLoad"/>
+      <good-params :params="parameter" :rule="rules"/>
     </Scroll>
   </div>
 </template>
@@ -15,16 +19,18 @@
 <script>
   import ImageSwiper from "../../components/common/swiper/ImageSwiper";
   import DetailNavBar from "./childComps/DetailNavBar";
-  import {getDetail, Goods, Shop} from "../../network/detail";
+  import {getDetail, Goods, Shop,GoodsParam} from "../../network/detail";
   import Swipe from "../../components/common/swiper/Swipe";
   import Good from "./childComps/Good";
   import Shops from './childComps/Shops';
   import Scroll from "../../components/common/scroll/Scroll";
   import DetailInfo from "./childComps/DetailInfo";
+  import GoodParams from "./childComps/GoodParams";
 
   export default {
     name: "Detail",
     components: {
+      GoodParams,
       DetailInfo,
       Scroll,
       Shops,
@@ -37,10 +43,12 @@
       return {
         iid: null,
         topImages: [], //轮播图图片
-        goods: {},
-        shop: {},
-        detailInfo:{},
-        img:{}
+        goods: {},//商品数据
+        shop: {},//店铺数据
+        detailInfo:{},//穿着效果数据
+        img:{},//穿着效果图片
+        parameter:{},//商品参数数据
+        rules:{},//商品尺码参数
       }
     },
     created() {
@@ -61,14 +69,20 @@
         //4.获取商品详细信息
         this.detailInfo = res.detailInfo.desc
         this.img = res.detailInfo.detailImage[0]
-
+        //4.获取参数信息
+        this.parameter = res.itemParams.info
+        this.rules = new GoodsParam(res.itemParams.rule)
 
       })
     },
     methods: {
       imageLoad(){
-        this.$refs.detailScroll.scroll.refresh()
-      }
+        this.$refs.detail.refresh();
+      },
+      LoadMore() {
+        //重新计数可滑动高度
+        this.$refs.detail.refresh()
+      },
     }
   }
 </script>
