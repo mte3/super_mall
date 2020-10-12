@@ -13,6 +13,7 @@
       <detail-info :detailInfo="detailInfo" :img="img" @imageLoad="imageLoad"/>
       <good-params :params="parameter" :rule="rules"/>
     </Scroll>
+    <goods-action class="goods-action"/>
   </div>
 </template>
 
@@ -26,10 +27,12 @@
   import Scroll from "../../components/common/scroll/Scroll";
   import DetailInfo from "./childComps/DetailInfo";
   import GoodParams from "./childComps/GoodParams";
+  import GoodsAction from "./childComps/GoodsAction";
 
   export default {
     name: "Detail",
     components: {
+      GoodsAction,
       GoodParams,
       DetailInfo,
       Scroll,
@@ -98,6 +101,13 @@
   position: relative;
   z-index: 9;
   background-color: white;
+}
+.goods-action{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
 }
   #scroll{
     position: absolute;

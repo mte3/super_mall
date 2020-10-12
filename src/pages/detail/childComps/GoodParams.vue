@@ -6,13 +6,17 @@
       <div class="text">{{i.value}}</div>
     </div>
     <div id="rule">
-      <h4 >{{rule.title}}</h4>
-      <div v-for="(i,index) in rules">
-        <div v-for="(a,n) in i[index]"></div>
+
+      <div class="rules" v-for="(i,index) in rule.rules">
+        <div class="rulesItem" v-for="(a,n) in i">
+          {{a}}
+        </div>
       </div>
+
+      <h4>{{rule.title}}</h4>
+
       <p class="ruleText">{{rule.text}}</p>
 
-      {{rule}}
     </div>
   </div>
 </template>
@@ -24,7 +28,7 @@
       params: {
         type: Object
       },
-      rule:{
+      rule: {
         type: Object
       }
     }
@@ -52,10 +56,22 @@
     flex: 3;
     font-size: 14px;
   }
-  #rule{
+
+  #rule {
     padding-top: 12px;
   }
-  .ruleText{
+  #rule  h4{
+    padding-top: 8px;
+  }
+  .rules{
+    padding: 10px 0 10px 0;
+    display: flex;
+  }
+  .rulesItem{
+    flex: 1;
+  }
+
+  .ruleText {
     font-size: 14px;
     padding-top: 8px;
   }

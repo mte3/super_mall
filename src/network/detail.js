@@ -50,6 +50,6 @@ export class GoodsParam{
   constructor(rule) {
     this.text = rule.disclaimer
     this.title = rule.key
-    this.rules = rule.tables
+    this.rules = rule.tables[0]
   }
 }

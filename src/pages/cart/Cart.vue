@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <swipe :swipe="swipe" :swipe-time="1500"/>
   </div>
 </template>
@@ -12,7 +11,7 @@
   export default {
         name: "Cart",
       components:{
-        Swipe
+        Swipe,
       },
     data(){
       return {
