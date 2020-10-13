@@ -73,7 +73,7 @@
         recommend: [],//推荐数据
         isShowBackTop: false,//是否显示返回顶部按钮
         detailTopYs: [],//标题对应的高度
-        titleIndex:0,
+        titleIndex: 0,
       }
     },
     created() {
@@ -128,12 +128,23 @@
         const Y = -position.y
         const length = this.detailTopYs.length
         //2.Y与标题对于的高度进行对比
-        for(let i = 0;i < length; i++){
-          if(this.titleIndex !== i && ((i < length - 1 && Y>= this.detailTopYs[i]
-          && Y <=this.detailTopYs[i+1] ||(i ===length -1 && Y >=this.detailTopYs[i])))){
+        for (let i = 0; i < length; i++) {
+          if (this.titleIndex !== i && (
+            Y >= this.detailTopYs[i] &&
+            Y < this.detailTopYs[i + 1])) {
             this.titleIndex = i
             this.$refs.nav.currentIndex = this.titleIndex
           }
+
+          //普通方法，比较复杂
+          // if(this.titleIndex !== i &&
+          //   ((i < length - 1 &&
+          //     Y>= this.detailTopYs[i] &&
+          //     Y <=this.detailTopYs[i+1] ||
+          //     (i ===length -1 && Y >=this.detailTopYs[i])))){
+          //   this.titleIndex = i
+          //   this.$refs.nav.currentIndex = this.titleIndex
+          // }
         }
 
         // this.titleIndex =
@@ -142,12 +153,12 @@
       imageLoad() {
         // 监听详情页穿着效果图片是否加载完
         this.$refs.detail.refresh();
-
         //标题点击事件所需要的高度
         this.detailTopYs.push(0)
         this.detailTopYs.push(this.$refs.commentTop.$el.offsetTop)
         this.detailTopYs.push(this.$refs.detailTop.$el.offsetTop)
         this.detailTopYs.push(this.$refs.recommendTop.$el.offsetTop)
+        this.detailTopYs.push(Number.MAX_VALUE)
       },
       LoadMore() {
         //上拉重新计数可滑动高度
@@ -171,10 +182,12 @@
     z-index: 9;
     background-color: white;
   }
-.goodsList{
-  border-top: 6px solid #d4ccc6;
-  padding-top: 8px;
-}
+
+  .goodsList {
+    border-top: 6px solid #d4ccc6;
+    padding-top: 8px;
+  }
+
   .goods-action {
     position: absolute;
     left: 0;
