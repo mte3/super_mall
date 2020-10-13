@@ -32,7 +32,8 @@
 
 <style scoped>
   .good {
-    padding: 12px 12px 8px 12px;
+    border-bottom: 6px solid #d4ccc6;
+    padding: 12px 12px 0 12px;
   }
 
   .goodsTitle {
@@ -76,16 +77,16 @@
   }
 
   .service {
-    width: 25%;
+    flex: 1;
     font-size: 10px;
     float: left;
-    display: inline;
   }
 
   .services {
+    display: flex;
     margin-top: 12px;
-    padding: 16px 0 36px 0;
-    border-bottom: 6px solid #d4ccc6;
+    padding: 16px 0 16px 0;
+
     border-top: 0.5px solid #d4ccc6;
     color: grey;
   }
@@ -93,7 +94,7 @@
   .sells {
     display: flex;
     width: 100%;
-    padding: 16px 0 0 0;
+    padding-top: 16px;
     font-size: 11px;
   }
   .sell{

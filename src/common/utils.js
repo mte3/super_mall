@@ -18,7 +18,8 @@ export function formatDate(date, fmt) {
   //yyy- 020
   //yyyy- 2020
   if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '')
+      .substr(4 - RegExp.$1.length));
   }
   let o = {
     'M+': date.getMonth() + 1,
@@ -34,6 +35,17 @@ export function formatDate(date, fmt) {
     }
   }
   return fmt;
+}
+
+export function getTime(timeNum,time) {
+  var data = new Date(timeNum * 1000);
+  var Y = date.getFullYear() + '-';
+  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+  var D = date.getDate() + ' ';
+  var h = date.getHours() + ':';
+  var m = date.getMinutes() + ':';
+  var s = date.getSeconds();
+  return Y + M + D + h + m + s;
 }
 
 function padLeftZero(str) {

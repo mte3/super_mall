@@ -1,28 +1,24 @@
 <template>
   <div id="shop">
 
-      <div class="shop">
-
-        <img :src="shop.logo" alt="">
-
-        <div class="shopT">
-          <div class="shopMid">
-            <h4>{{shop.name}}</h4>
-            <div class="shop-item goods">在架商品 {{shop.goods}}</div>
-
-          </div>
-
+    <div class="shop">
+      <img :src="shop.logo" alt="">
+      <div class="shopT">
+        <div class="shopMid">
+          <h4>{{shop.name}}</h4>
+          <div class="shop-item goods">在架商品 {{shop.goods}}</div>
         </div>
-
       </div>
+    </div>
 
     <div class="shopUnder">
-
       <div class="underLeft">
-        <div class="shop-item fans">{{shop.fans}}
+        <div class="shop-item fans">
+          {{getNum(fans)}}
           <div class="text">关注</div>
         </div>
-        <div class="shop-item sells">{{shop.sells}}
+        <div class="shop-item sells">
+          {{getNum(sells)}}
           <div class="text">总销量</div>
         </div>
       </div>
@@ -38,7 +34,9 @@
 
 
     </div>
-    <a :href="shop.url"> <div class="come">进店逛逛</div></a>
+    <a :href="shop.url">
+      <div class="come">进店逛逛</div>
+    </a>
 
   </div>
 </template>
@@ -48,6 +46,23 @@
     name: "Shops",
     props: {
       shop: {}
+    },
+    data(){
+      return{
+        fans:0,
+        sells:0
+      }
+    },
+    watch: {
+      shop() {
+        this.fans = this.shop.fans
+        this.sells = this.shop.sells
+      },
+    },
+    methods:{
+      getNum(e){
+        return e>9999? (e/10000).toFixed(1)+'万':e;
+      }
     }
   }
 </script>
@@ -57,6 +72,11 @@
   #shop {
     padding: 0 12px 12px 12px;
   }
+
+  .shop img {
+    border-radius: 8px;
+  }
+
   .shopT {
     display: flex;
   }
@@ -66,6 +86,7 @@
     padding: 12px 0 12px 6px;
 
   }
+
   .come {
     padding-top: 6px;
     font-size: 15px;
@@ -88,7 +109,7 @@
 
   .underLeft {
     text-align: center;
-    padding: 24px 12px 0 0 ;
+    padding: 24px 12px 0 0;
     border-right: solid 2px #d4ccc6;
     flex: 2;
     display: flex;
@@ -105,9 +126,11 @@
     margin: 0 12px 0 12px;
     color: green;
   }
-.isBetter{
-  color: #ff5777;
-}
+
+  .isBetter {
+    color: #ff5777;
+  }
+
   .sells {
     flex: 1;
   }
@@ -135,15 +158,17 @@
     color: white;
     padding: 3px;
   }
-.come{
-  width: 136px;
-  text-align: center;
-  padding: 8px 0 8px 0;
-  background-color: #d4ccc6;
-  position: relative;
-  left: calc(50% - 68px);
-  border-radius: 12px;
-}
+
+  .come {
+    width: 136px;
+    text-align: center;
+    padding: 8px 0 8px 0;
+    background-color: #d4ccc6;
+    position: relative;
+    left: calc(50% - 68px);
+    border-radius: 12px;
+  }
+
   .goods {
     font-size: 12px;
     padding-top: 12px;

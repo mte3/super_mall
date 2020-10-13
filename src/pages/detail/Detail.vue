@@ -4,12 +4,14 @@
     <Scroll
       @pullingUp='LoadMore'
       id="scroll"
-      ref="detail" >
+      ref="detail">
       <div class="imageSwipe">
         <image-swiper :image-swipe="topImages" :swipe-time="2000"/>
       </div>
       <good :goods="goods"/>
+      <comment-info :rate="commentInfo" :time="time"/>
       <shops :shop="shop"/>
+
       <detail-info :detailInfo="detailInfo" :img="img" @imageLoad="imageLoad"/>
       <good-params :params="parameter" :rule="rules"/>
     </Scroll>
@@ -18,9 +20,10 @@
 </template>
 
 <script>
+  import CommentInfo from "./childComps/CommentInfo";
   import ImageSwiper from "../../components/common/swiper/ImageSwiper";
   import DetailNavBar from "./childComps/DetailNavBar";
-  import {getDetail, Goods, Shop,GoodsParam} from "../../network/detail";
+  import {getDetail, Goods, Shop, GoodsParam} from "../../network/detail";
   import Swipe from "../../components/common/swiper/Swipe";
   import Good from "./childComps/Good";
   import Shops from './childComps/Shops';
@@ -40,7 +43,8 @@
       ImageSwiper,
       DetailNavBar,
       Swipe,
-      Good
+      Good,
+      CommentInfo
     },
     data() {
       return {
@@ -48,10 +52,12 @@
         topImages: [], //轮播图图片
         goods: {},//商品数据
         shop: {},//店铺数据
-        detailInfo:{},//穿着效果数据
-        img:{},//穿着效果图片
-        parameter:{},//商品参数数据
-        rules:{},//商品尺码参数
+        detailInfo: {},//穿着效果数据
+        img: {},//穿着效果图片
+        parameter: {},//商品参数数据
+        rules: {},//商品尺码参数
+        commentInfo: {},//评论信息
+        time: 0,//评论时间
       }
     },
     created() {
@@ -72,14 +78,19 @@
         //4.获取商品详细信息
         this.detailInfo = res.detailInfo.desc
         this.img = res.detailInfo.detailImage[0]
-        //4.获取参数信息
+        //5.获取参数信息
         this.parameter = res.itemParams.info
         this.rules = new GoodsParam(res.itemParams.rule)
+        //6.获取评论信息
+        if (data.result.rate.cRate > 0) {
+          this.commentInfo = res.rate
+          this.time = res.rate.list[0].created
+        }
 
       })
     },
     methods: {
-      imageLoad(){
+      imageLoad() {
         this.$refs.detail.refresh();
       },
       LoadMore() {
@@ -91,27 +102,31 @@
 </script>
 
 <style scoped>
-#detail{
-  height: 100vh;
-  position: relative;
-  z-index: 9;
-  background-color: #ffffff;
-}
-.detail{
-  position: relative;
-  z-index: 9;
-  background-color: white;
-}
-.goods-action{
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99;
-}
-  #scroll{
+  #detail {
+    height: 100vh;
+    position: relative;
+    z-index: 9;
+    background-color: #ffffff;
+  }
+
+  .detail {
+    position: relative;
+    z-index: 9;
+    background-color: white;
+  }
+
+  .goods-action {
     position: absolute;
-    height: calc(100% - 44px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+  }
+
+  #scroll {
+    position: absolute;
+    height: calc(100% - 93px);
+    overflow: hidden;
     /*overflow: hidden;*/
     /*width: 100%;*/
     /*position: absolute;*/
