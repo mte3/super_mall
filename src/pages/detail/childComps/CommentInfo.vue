@@ -57,6 +57,7 @@
 <style scoped>
   #commentInfo {
     border-bottom: 6px solid #d4ccc6;
+    border-top: 6px solid #d4ccc6;
     padding: 12px;
     margin-bottom: 12px;
   }

@@ -31,15 +31,17 @@
     },
     data() {
       return {
-        titles: ['商品', '参数', '评论', '推荐',],
+        titles: ['商品', '评论',  '详情','推荐',],
         currentIndex: 0
       }
     },
     methods: {
       handelTitle(index) {
-        this.currentIndex = index
+        this.currentIndex = index;
+        this.$emit('titleClick',index)
       },
       handelBack(){
+        //点击返回
         this.$router.go(-1)
       }
     }

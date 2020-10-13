@@ -64,6 +64,7 @@
     padding-top: 8px;
   }
   .rules{
+    font-size: 14px;
     padding: 10px 0 10px 0;
     display: flex;
   }

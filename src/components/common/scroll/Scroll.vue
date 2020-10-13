@@ -56,7 +56,7 @@
         });
 
         //监听滑动位置，/是否显示返回顶部按钮
-        if(this.probeType == 2 || this.probeType == 3){
+        if(this.probeType === 2 || this.probeType === 3){
           this.scroll.on('scroll',(position) => {
             this.$emit('scroll',position)
           });

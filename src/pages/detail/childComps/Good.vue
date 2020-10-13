@@ -32,11 +32,11 @@
 
 <style scoped>
   .good {
-    border-bottom: 6px solid #d4ccc6;
     padding: 12px 12px 0 12px;
   }
 
   .goodsTitle {
+    letter-spacing: 0.5px;
     font-weight: 700;
     font-size: 16px;
     color: black;
@@ -74,6 +74,7 @@
   .service img {
     width: 12px;
     float: left;
+    margin-right: 3px;
   }
 
   .service {
@@ -86,7 +87,6 @@
     display: flex;
     margin-top: 12px;
     padding: 16px 0 16px 0;
-
     border-top: 0.5px solid #d4ccc6;
     color: grey;
   }

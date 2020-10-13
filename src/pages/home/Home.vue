@@ -77,11 +77,6 @@
         },
         currentType: 'pop',
         isShowTabControl: false,
-        // tabHeight: {
-        //   'pop': {height: 0},
-        //   'new': {height: 0},
-        //   'sell': {height: 0},
-        // },
       }
     },
     created() {
@@ -110,7 +105,6 @@
     },
     methods: {
       //事件监听相关方法
-
       isBackTop() {
         //点击回到顶部
         this.$refs.scroll.scrollTo()

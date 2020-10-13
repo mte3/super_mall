@@ -42,7 +42,7 @@
 
 <style scoped>
 #detailInfo{
-  border-top: 8px solid #d4ccc6;
+  border-top: 6px solid #d4ccc6;
   width: 100%;
 }
 .detailImage{
