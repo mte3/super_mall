@@ -103,7 +103,8 @@
 
   .mes p {
     padding: 12px 0 12px 0;
-    font-size: 14px;
+    letter-spacing: 1px;
+    font-size: 13px;
   }
 
   .getTime {

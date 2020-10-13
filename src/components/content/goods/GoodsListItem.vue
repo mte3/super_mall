@@ -1,12 +1,11 @@
 <template>
   <div class="goods-item" @click="handelGood">
-    <img :src="goodsItem.show.img" alt="" >
+    <img :src="shopImages" alt="" >
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
       <span class="collect">{{goodsItem.cfav}}</span>
     </div>
-
   </div>
 </template>
 
@@ -19,6 +18,11 @@
         default() {
           return {}
         }
+      }
+    },
+    computed:{
+      shopImages(){
+        return this.goodsItem.image ||this.goodsItem.show.img
       }
     },
     // @load="imageLoad"
@@ -52,10 +56,6 @@
 
   .goods-info {
     font-size: 12px;
-    /*position: absolute;*/
-    /*bottom: 5px;*/
-    /*left: 0;*/
-    /*right: 0;*/
     overflow: hidden;
     text-align: center;
   }

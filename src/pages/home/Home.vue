@@ -31,7 +31,7 @@
 
     </scroll>
 
-    <back-top @click.native="backTop" v-show="isShowBackTop"/>
+    <back-top @click.native="isBackTop" v-show="isShowBackTop"/>
 
   </div>
 </template>
@@ -111,6 +111,10 @@
     methods: {
       //事件监听相关方法
 
+      isBackTop() {
+        //点击回到顶部
+        this.$refs.scroll.scrollTo()
+      },
       swipeImageLoad() {
         //获取tabControl的offsetTop(距离顶部高度)
         this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
@@ -124,17 +128,12 @@
       },
 
       contentScroll(position) {
-        //是否显示返回顶部按钮
+        // 是否显示返回顶部按钮
         this.isShowBackTop = (-position.y) > 1000;
-
         //tabControl是否吸顶
         this.isShowTabControl = (-position.y) > this.tabOffsetTop
       },
 
-      backTop() {
-        //点击回到顶部
-        this.$refs.scroll.scrollTo()
-      },
 
       tabClick(index) {
         switch (index) {

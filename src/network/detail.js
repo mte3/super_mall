@@ -8,6 +8,12 @@ export function getDetail(iid) {
     }
   })
 }
+export function getRecommend(){
+  return request({
+    url:'/recommend'
+  })
+}
+
 
 export class Goods {
   constructor(itemInfo,columns,services) {
@@ -23,16 +29,6 @@ export class Goods {
     this.realPrice = itemInfo.lowNowPrice;
   }
 }
-
-// export class GoodsParam{
-//   constructor(info,rule) {
-//     this.image = info.images ? info.images[0] : '';
-//     this.infos = info.set;
-//     this.key1 = info.key
-//     this.sizes = rule.tables[0];
-//   }
-// }
-
 export class Shop {
   constructor(shopInfo) {
     this.logo = shopInfo.shopLogo;//商店头像

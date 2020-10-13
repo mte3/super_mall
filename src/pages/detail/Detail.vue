@@ -3,6 +3,9 @@
     <detail-nav-bar class="detail"/>
     <Scroll
       @pullingUp='LoadMore'
+      @scroll="contentScroll"
+      :probe-type="3"
+      :pull-up-load="true"
       id="scroll"
       ref="detail">
       <div class="imageSwipe">
@@ -14,27 +17,35 @@
 
       <detail-info :detailInfo="detailInfo" :img="img" @imageLoad="imageLoad"/>
       <good-params :params="parameter" :rule="rules"/>
+      <goods-list :goods="recommend" class="goodsList"/>
     </Scroll>
     <goods-action class="goods-action"/>
+    <back-top @click.native="BackTop" v-show="isShowBackTop"/>
+
   </div>
 </template>
 
 <script>
+  import {getDetail, Goods, Shop, GoodsParam, getRecommend} from "../../network/detail";
+
   import CommentInfo from "./childComps/CommentInfo";
-  import ImageSwiper from "../../components/common/swiper/ImageSwiper";
   import DetailNavBar from "./childComps/DetailNavBar";
-  import {getDetail, Goods, Shop, GoodsParam} from "../../network/detail";
-  import Swipe from "../../components/common/swiper/Swipe";
   import Good from "./childComps/Good";
   import Shops from './childComps/Shops';
-  import Scroll from "../../components/common/scroll/Scroll";
   import DetailInfo from "./childComps/DetailInfo";
   import GoodParams from "./childComps/GoodParams";
   import GoodsAction from "./childComps/GoodsAction";
 
+  import ImageSwiper from "../../components/common/swiper/ImageSwiper";
+  import Swipe from "../../components/common/swiper/Swipe";
+  import Scroll from "../../components/common/scroll/Scroll";
+  import GoodsList from "../../components/content/goods/GoodsList";
+  import BackTop from "../../components/content/backTop/BackTop";
   export default {
     name: "Detail",
     components: {
+      BackTop,
+      GoodsList,
       GoodsAction,
       GoodParams,
       DetailInfo,
@@ -58,10 +69,12 @@
         rules: {},//商品尺码参数
         commentInfo: {},//评论信息
         time: 0,//评论时间
+        recommend: [],//推荐数据
+        isShowBackTop: false,//是否显示返回顶部按钮
       }
     },
     created() {
-      //1.保持传入的iid
+      //1.保存传入的iid
       this.iid = this.$route.params.iid
 
       //2.根据iid请求详细数据
@@ -72,7 +85,6 @@
 
         //2.获取商品信息
         this.goods = new Goods(res.itemInfo, res.columns, res.shopInfo.services)
-        console.log(res);
         //3.获取店铺信息
         this.shop = new Shop(res.shopInfo)
         //4.获取商品详细信息
@@ -88,13 +100,27 @@
         }
 
       })
+
+      //获取推荐数据
+      getRecommend().then(data => {
+        this.recommend = data.data.list
+      })
     },
     methods: {
+      BackTop() {
+        //点击回到顶部
+        this.$refs.detail.scrollTo()
+      },
+      contentScroll(position) {
+        //是否显示返回顶部按钮
+        this.isShowBackTop = (-position.y) > 1000;
+      },
       imageLoad() {
+        // 图片加载完
         this.$refs.detail.refresh();
       },
       LoadMore() {
-        //重新计数可滑动高度
+        //下拉重新计数可滑动高度
         this.$refs.detail.refresh()
       },
     }
@@ -103,6 +129,7 @@
 
 <style scoped>
   #detail {
+    width: 100%;
     height: 100vh;
     position: relative;
     z-index: 9;
@@ -124,6 +151,7 @@
   }
 
   #scroll {
+    width: 100%;
     position: absolute;
     height: calc(100% - 93px);
     overflow: hidden;
