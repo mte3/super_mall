@@ -146,8 +146,6 @@
           //   this.$refs.nav.currentIndex = this.titleIndex
           // }
         }
-
-        // this.titleIndex =
       },
 
       imageLoad() {
