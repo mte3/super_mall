@@ -29,6 +29,17 @@ export class Goods {
     this.realPrice = itemInfo.lowNowPrice;
   }
 }
+export class addCart{
+constructor(skuInfo) {
+  this.price = skuInfo.priceRange
+  this.color = skuInfo.props[0].list
+  this.size = skuInfo.props[1].list
+  this.colorTitle = skuInfo.props[0].label
+  this.sizeTitle = skuInfo.props[1].label
+  this.show = skuInfo.skus
+}
+}
+
 export class Shop {
   constructor(shopInfo) {
     this.logo = shopInfo.shopLogo;//商店头像

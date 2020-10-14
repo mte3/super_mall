@@ -1,7 +1,8 @@
 <template>
   <div id="detail">
-    <detail-nav-bar ref="nav" class="detail" @titleClick="titleClick"/>
+    <detail-nav-bar  @click="handelBack" ref="nav" class="detail" @titleClick="titleClick"/>
     <Scroll
+      @click="handelBack"
       @pullingUp='LoadMore'
       @scroll="contentScroll"
       :probe-type="3"
@@ -19,14 +20,15 @@
       <good-params :params="parameter" :rule="rules"/>
       <goods-list ref="recommendTop" :goods="recommend" class="goodsList"/>
     </Scroll>
-    <goods-action class="goods-action"/>
+    <goods-action class="goods-action" @addCart="addCart"/>
     <back-top @click.native="BackTop" v-show="isShowBackTop"/>
+    <add-cart :cart="cart"  class="addCart" v-show="isAddCart" @back="back"/>
 
   </div>
 </template>
 
 <script>
-  import {getDetail, Goods, Shop, GoodsParam, getRecommend} from "../../network/detail";
+  import {getDetail, Goods, Shop, GoodsParam, getRecommend,addCart} from "../../network/detail";
 
   import CommentInfo from "./childComps/CommentInfo";
   import DetailNavBar from "./childComps/DetailNavBar";
@@ -41,10 +43,12 @@
   import Scroll from "../../components/common/scroll/Scroll";
   import GoodsList from "../../components/content/goods/GoodsList";
   import BackTop from "../../components/content/backTop/BackTop";
+  import AddCart from "../../components/content/addCart/AddCart";
 
   export default {
     name: "Detail",
     components: {
+      AddCart,
       BackTop,
       GoodsList,
       GoodsAction,
@@ -74,6 +78,8 @@
         isShowBackTop: false,//是否显示返回顶部按钮
         detailTopYs: [],//标题对应的高度
         titleIndex: 0,
+        isAddCart:false,
+        cart:{},
       }
     },
     created() {
@@ -82,6 +88,7 @@
 
       //2.根据iid请求详细数据
       getDetail(this.iid).then(data => {
+        console.log(data.result)
         const res = data.result;
         //1.获取轮播图图片
         this.topImages = res.itemInfo.topImages
@@ -101,6 +108,8 @@
           this.commentInfo = res.rate
           this.time = res.rate.list[0].created
         }
+        //7.获取加入购物车数据
+        this.cart = new addCart(res.skuInfo)
 
       })
 
@@ -110,6 +119,22 @@
       })
     },
     methods: {
+      addCart(){
+        this.isAddCart = true
+        //点击加入购物车
+        // //获取购物车所需要展示的数据
+        // const show = {}
+        // show.image = this.topImages[0];
+        // show.title = this.goods.title;
+        // show.price = this.goods.price
+      },
+      handelBack(){
+        this.isAddCart = false
+      },
+      back(){
+        this.isAddCart = false
+      },
+
       titleClick(index) {
         //标题点击事件
         this.$refs.detail.scrollTo(0, -this.detailTopYs[index], 100)
@@ -146,6 +171,8 @@
           //   this.$refs.nav.currentIndex = this.titleIndex
           // }
         }
+
+        // this.titleIndex =
       },
 
       imageLoad() {
@@ -192,6 +219,13 @@
     right: 0;
     bottom: 0;
     z-index: 99;
+  }
+  .addCart{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
   }
 
   #scroll {

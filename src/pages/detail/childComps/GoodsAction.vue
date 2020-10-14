@@ -57,11 +57,11 @@
         }
       },
 
-      addCart(){
+      addCart() {
         //点击购物车
-        console.log('加入购物车')
+        this.$emit('addCart')
       },
-      Buy(){
+      Buy() {
         //点击立即购买
         console.log('立即购买')
       },
@@ -96,7 +96,7 @@
 
   .box {
     flex: 2;
-    padding-top: 16px;
+    line-height: 49px;
     font-size: 16px;
     text-align: center;
   }
