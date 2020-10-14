@@ -1,8 +1,7 @@
 <template>
   <div id="detail">
-    <detail-nav-bar  @click="handelBack" ref="nav" class="detail" @titleClick="titleClick"/>
+    <detail-nav-bar ref="nav" class="detail" @titleClick="titleClick"/>
     <Scroll
-      @click="handelBack"
       @pullingUp='LoadMore'
       @scroll="contentScroll"
       :probe-type="3"
@@ -20,9 +19,13 @@
       <good-params :params="parameter" :rule="rules"/>
       <goods-list ref="recommendTop" :goods="recommend" class="goodsList"/>
     </Scroll>
-    <goods-action class="goods-action" @addCart="addCart"/>
+    <goods-action class="goods-action" @addCart="addCart" @Buy="Buy"/>
     <back-top @click.native="BackTop" v-show="isShowBackTop"/>
-    <add-cart :cart="cart"  class="addCart" v-show="isAddCart" @back="back"/>
+    <style-choice :cart="cart"
+              :choiceShow="choiceShow"
+              class="addCart"
+              v-show="styleChoice"
+              @back="back"/>
 
   </div>
 </template>
@@ -43,12 +46,12 @@
   import Scroll from "../../components/common/scroll/Scroll";
   import GoodsList from "../../components/content/goods/GoodsList";
   import BackTop from "../../components/content/backTop/BackTop";
-  import AddCart from "../../components/content/addCart/AddCart";
+  import styleChoice from "../../components/content/addCart/styleChoice";
 
   export default {
     name: "Detail",
     components: {
-      AddCart,
+      styleChoice,
       BackTop,
       GoodsList,
       GoodsAction,
@@ -78,8 +81,10 @@
         isShowBackTop: false,//是否显示返回顶部按钮
         detailTopYs: [],//标题对应的高度
         titleIndex: 0,
-        isAddCart:false,
+        styleChoice:false,
+        styleChoiceKey:'cart',
         cart:{},
+        choiceShow:{}
       }
     },
     created() {
@@ -88,8 +93,8 @@
 
       //2.根据iid请求详细数据
       getDetail(this.iid).then(data => {
-        console.log(data.result)
         const res = data.result;
+        console.log(data.result.skuInfo)
         //1.获取轮播图图片
         this.topImages = res.itemInfo.topImages
 
@@ -110,6 +115,7 @@
         }
         //7.获取加入购物车数据
         this.cart = new addCart(res.skuInfo)
+        this.choiceShow = res.skuInfo.skus[0]
 
       })
 
@@ -120,21 +126,21 @@
     },
     methods: {
       addCart(){
-        this.isAddCart = true
-        //点击加入购物车
-        // //获取购物车所需要展示的数据
-        // const show = {}
-        // show.image = this.topImages[0];
-        // show.title = this.goods.title;
-        // show.price = this.goods.price
+        this.styleChoice = true
+        this.styleChoiceKey = 'cart'
+        console.log(this.styleChoiceKey)
       },
-      handelBack(){
-        this.isAddCart = false
+      Buy(){
+        this.styleChoice = true
+        this.styleChoiceKey = 'buy'
+        console.log(this.styleChoiceKey)
       },
+      // handelBack(){
+      //   this.styleChoice = false
+      // },
       back(){
-        this.isAddCart = false
+        this.styleChoice = false
       },
-
       titleClick(index) {
         //标题点击事件
         this.$refs.detail.scrollTo(0, -this.detailTopYs[index], 100)
@@ -179,11 +185,13 @@
         // 监听详情页穿着效果图片是否加载完
         this.$refs.detail.refresh();
         //标题点击事件所需要的高度
-        this.detailTopYs.push(0)
-        this.detailTopYs.push(this.$refs.commentTop.$el.offsetTop)
-        this.detailTopYs.push(this.$refs.detailTop.$el.offsetTop)
-        this.detailTopYs.push(this.$refs.recommendTop.$el.offsetTop)
-        this.detailTopYs.push(Number.MAX_VALUE)
+       setTimeout(() =>{
+         this.detailTopYs.push(0)
+         this.detailTopYs.push(this.$refs.commentTop.$el.offsetTop)
+         this.detailTopYs.push(this.$refs.detailTop.$el.offsetTop)
+         this.detailTopYs.push(this.$refs.recommendTop.$el.offsetTop)
+         this.detailTopYs.push(Number.MAX_VALUE)
+       },100)
       },
       LoadMore() {
         //上拉重新计数可滑动高度

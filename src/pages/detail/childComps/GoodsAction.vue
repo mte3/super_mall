@@ -63,7 +63,7 @@
       },
       Buy() {
         //点击立即购买
-        console.log('立即购买')
+        this.$emit('Buy')
       },
     }
   }
