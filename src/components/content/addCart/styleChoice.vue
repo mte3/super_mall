@@ -12,7 +12,7 @@
           <div v-show="colorIndex===index" v-for="(i,index) in cart.color">{{i.name}}</div>
         </div>
       </div>
-      <div @click="back" class="back" >
+      <div @click="back" class="back">
         <img src="../../../assets/img/detail/close.png" style="width: 16px;height: 16px" alt="">
       </div>
     </div>
@@ -21,38 +21,38 @@
             :pull-up-load="true"
             id="scrollChoice">
 
-        <h5>{{cart.sizeTitle}}</h5>
-        <div class=" choice size">
-          <div
-            :class="{activeSize:sizeIndex ===indexS}"
-            class="list sizeLis"
-            @click="choiceSize(s.sizeId,indexS)"
+      <h5>{{cart.sizeTitle}}</h5>
+      <div class=" choice size">
+        <div
+          :class="{activeSize:sizeIndex ===indexS}"
+          class="list sizeLis"
+          @click="choiceSize(s.sizeId,indexS)"
 
-            v-for="(s,indexS) in cart.size">
-            {{s.name}}
-          </div>
+          v-for="(s,indexS) in cart.size">
+          {{s.name}}
         </div>
+      </div>
 
-        <h5>{{cart.colorTitle}}</h5>
-        <div class="choice color">
-          <div class="list colorLis"
-               :class="{activeColor:colorIndex === indexC}"
-               @click="choiceColor(c.styleId,indexC)"
-               v-for="(c,indexC) in cart.color">
-            {{c.name}}
-          </div>
+      <h5>{{cart.colorTitle}}</h5>
+      <div class="choice color">
+        <div class="list colorLis"
+             :class="{activeColor:colorIndex === indexC}"
+             @click="choiceColor(c.styleId,indexC)"
+             v-for="(c,indexC) in cart.color">
+          {{c.name}}
         </div>
-        <div id="num">
-          <h5>购买数量</h5>
-          <div class="num">
-            <div @click="numSub">-</div>
-            <div>{{num}}</div>
-            <div @click="numAdd">+</div>
-          </div>
+      </div>
+      <div id="num">
+        <h5>购买数量</h5>
+        <div class="num">
+          <div @click="numSub">-</div>
+          <div>{{num}}</div>
+          <div @click="numAdd">+</div>
         </div>
+      </div>
       <div style="height: 24px"></div>
     </scroll>
-    <div id="sure">确定</div>
+    <div id="sure" @click="handelSure">确定</div>
   </div>
 </template>
 
@@ -67,6 +67,9 @@
     props: {
       cart: {
         type: Object
+      },
+      styleChoiceKey: {
+        type: String
       },
       choiceShow: {
         //默认选择（要传）
@@ -86,6 +89,7 @@
         show: {},
         Show: {},//已选（要传）
         num: 1,//购买数量（要传）
+        // goodOrder:[]
       }
     },
     updated() {
@@ -93,14 +97,24 @@
       this.$refs.styleChoice.refresh()
     },
     methods: {
+      handelSure() {
+        //点击确认（购买/加入购物车）
+        if (this.styleChoiceKey === 'cart') {
+          // 加入购物车
+          this.$emit('addCart', this.num, this.Show,this.choiceShow)
+        } else {
+          // 购买
+
+        }
+      },
       LoadMore() {
         //上拉重新计数可滑动高度
         this.$refs.styleChoice.refresh()
       },
       imageLoad() {
-        setTimeout(()=>{
+        setTimeout(() => {
           this.$refs.styleChoice.refresh()
-        },50)
+        }, 50)
       },
       numSub() {
         //购买/加入购物车数量减一
@@ -133,11 +147,9 @@
               this.Show = this.show
               break;
             }
-
           }
         }
       },
-
       back() {
         this.$emit('back')
       }
@@ -181,7 +193,7 @@
   #num {
     margin: 12px 24px 0 0;
     padding: 12px 0 12px 0;
-    border-bottom:#d4ccc6 1px solid;
+    border-bottom: #d4ccc6 1px solid;
     display: flex;
   }
 
@@ -203,6 +215,7 @@
     padding: 6px 12px 6px 12px;
 
   }
+
   .Selected {
     padding-bottom: 12px;
     height: 112px;
@@ -269,7 +282,8 @@
     top: 12px;
     right: 12px;
   }
-  .back img{
+
+  .back img {
 
   }
 </style>

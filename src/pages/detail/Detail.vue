@@ -23,10 +23,11 @@
     <back-top @click.native="BackTop" v-show="isShowBackTop"/>
 
     <style-choice :cart="cart"
+                  :styleChoiceKey="styleChoiceKey"
               :choiceShow="choiceShow"
               class="styleChoice"
               v-show="styleChoice"
-              @back="back"/>
+              @back="back" @addCart="addCartSure"/>
 
   </div>
 </template>
@@ -95,7 +96,6 @@
       //2.根据iid请求详细数据
       getDetail(this.iid).then(data => {
         const res = data.result;
-        console.log(data.result.skuInfo)
         //1.获取轮播图图片
         this.topImages = res.itemInfo.topImages
 
@@ -126,10 +126,20 @@
       })
     },
     methods: {
+      addCartSure(num, Show,choiceShow){
+        //1.获取购物车所需要展示的信息
+        const orderGoods = {}
+        orderGoods.iid = this.iid;
+        orderGoods.num = num;
+        orderGoods.Show = Show;
+        orderGoods.defaultShow = choiceShow
+        //2.将商品添加到购物车
+
+      },
+
       addCart(){
         this.styleChoice = true
         this.styleChoiceKey = 'cart'
-        console.log(this.styleChoiceKey)
       },
       Buy(){
         this.styleChoice = true
