@@ -1,11 +1,8 @@
 <template>
-  <div id="addCart">
-    <div @click="back">
-      <img class="back" src="../../../assets/img/detail/close.png" alt="">
-    </div>
 
+  <div id="styleChoice">
     <div class="Selected">
-      <img :src="Show.img??choiceShow.img" alt="">
+      <img :src="Show.img??choiceShow.img" alt="" @load="imageLoad">
       <div class="Selecteds">
         <div class="price">{{Show.currency ??'￥'}}{{((Show.nowprice ??choiceShow.nowprice)/100).toFixed(2)}}</div>
         <p>库存充足</p>
@@ -15,44 +12,58 @@
           <div v-show="colorIndex===index" v-for="(i,index) in cart.color">{{i.name}}</div>
         </div>
       </div>
-    </div>
-
-    <h5>{{cart.sizeTitle}}</h5>
-    <div class=" choice size">
-      <div
-        :class="{activeSize:sizeIndex ===indexS}"
-        class="list sizeLis"
-        @click="choiceSize(s.sizeId,indexS)"
-
-        v-for="(s,indexS) in cart.size">
-        {{s.name}}
+      <div @click="back" class="back" >
+        <img src="../../../assets/img/detail/close.png" style="width: 16px;height: 16px" alt="">
       </div>
     </div>
+    <scroll ref="styleChoice"
+            @pullingUp='LoadMore'
+            :pull-up-load="true"
+            id="scrollChoice">
 
-    <h5>{{cart.colorTitle}}</h5>
-    <div class="choice color">
-      <div class="list colorLis"
-           :class="{activeColor:colorIndex === indexC}"
-           @click="choiceColor(c.styleId,indexC)"
-           v-for="(c,indexC) in cart.color">
-        {{c.name}}
-      </div>
-    </div>
-    <div id="num">
-      <h5>购买数量</h5>
-      <div class="num">
-        <div @click="numSub">-</div>
-        <div>{{num}}</div>
-        <div @click="numAdd">+</div>
-      </div>
-    </div>
+        <h5>{{cart.sizeTitle}}</h5>
+        <div class=" choice size">
+          <div
+            :class="{activeSize:sizeIndex ===indexS}"
+            class="list sizeLis"
+            @click="choiceSize(s.sizeId,indexS)"
+
+            v-for="(s,indexS) in cart.size">
+            {{s.name}}
+          </div>
+        </div>
+
+        <h5>{{cart.colorTitle}}</h5>
+        <div class="choice color">
+          <div class="list colorLis"
+               :class="{activeColor:colorIndex === indexC}"
+               @click="choiceColor(c.styleId,indexC)"
+               v-for="(c,indexC) in cart.color">
+            {{c.name}}
+          </div>
+        </div>
+        <div id="num">
+          <h5>购买数量</h5>
+          <div class="num">
+            <div @click="numSub">-</div>
+            <div>{{num}}</div>
+            <div @click="numAdd">+</div>
+          </div>
+        </div>
+      <div style="height: 24px"></div>
+    </scroll>
     <div id="sure">确定</div>
   </div>
 </template>
 
 <script>
+  import Scroll from "../../common/scroll/Scroll";
+
   export default {
     name: "styleChoice",
+    components: {
+      Scroll
+    },
     props: {
       cart: {
         type: Object
@@ -79,14 +90,26 @@
     },
     updated() {
       this.getShow()
+      this.$refs.styleChoice.refresh()
     },
     methods: {
-      numSub(){
-      if(this.num>1){
-        this.num--
-      }
+      LoadMore() {
+        //上拉重新计数可滑动高度
+        this.$refs.styleChoice.refresh()
       },
-      numAdd(){
+      imageLoad() {
+        setTimeout(()=>{
+          this.$refs.styleChoice.refresh()
+        },50)
+      },
+      numSub() {
+        //购买/加入购物车数量减一
+        if (this.num > 1) {
+          this.num--
+        }
+      },
+      numAdd() {
+        //购买/加入购物车数量加一
         this.num++
       },
 
@@ -123,7 +146,16 @@
 </script>
 
 <style scoped>
-  #addCart {
+  #scrollChoice {
+    overflow: hidden;
+    width: 100%;
+    position: absolute;
+    height: calc(100% - 164px);
+  }
+
+  #styleChoice {
+    overflow: hidden;
+    width: 100%;
     padding: 12px;
     height: 80%;
     background-color: white;
@@ -142,11 +174,14 @@
     border-radius: 12px;
   }
 
-  #addCart h5 {
+  #scrollChoice h5 {
     margin-top: 12px;
   }
 
   #num {
+    margin: 12px 24px 0 0;
+    padding: 12px 0 12px 0;
+    border-bottom:#d4ccc6 1px solid;
     display: flex;
   }
 
@@ -160,21 +195,19 @@
     width: 50%;
     text-align: right;
   }
-  .num div{
+
+  .num div {
     display: inline;
     margin: 0 2px 0 2px;
     background-color: #e0dad5;
-    padding:6px 12px 6px 12px;
+    padding: 6px 12px 6px 12px;
 
   }
-  .num span{
-    display: inline;
-  }
-
   .Selected {
+    padding-bottom: 12px;
+    height: 112px;
     font-size: 14px;
     display: flex;
-    padding-top: 12px;
   }
 
   .choice {
@@ -227,11 +260,16 @@
 
   .Selected img {
     margin-right: 12px;
-    width: 20%;
+    width: 80px;
+    height: 100px;
   }
 
   .back {
-    float: right;
-    width: 16px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+  .back img{
+
   }
 </style>

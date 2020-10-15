@@ -21,9 +21,10 @@
     </Scroll>
     <goods-action class="goods-action" @addCart="addCart" @Buy="Buy"/>
     <back-top @click.native="BackTop" v-show="isShowBackTop"/>
+
     <style-choice :cart="cart"
               :choiceShow="choiceShow"
-              class="addCart"
+              class="styleChoice"
               v-show="styleChoice"
               @back="back"/>
 
@@ -177,8 +178,6 @@
           //   this.$refs.nav.currentIndex = this.titleIndex
           // }
         }
-
-        // this.titleIndex =
       },
 
       imageLoad() {
@@ -228,7 +227,7 @@
     bottom: 0;
     z-index: 99;
   }
-  .addCart{
+  .styleChoice{
     position: absolute;
     left: 0;
     right: 0;
