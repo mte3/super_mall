@@ -8,6 +8,10 @@
       :pull-up-load="true"
       id="scroll"
       ref="detail">
+      <div>{{$store.state.cartList.length}}</div>
+      <ul v-for="i in $store.state.cartList">
+        <li>'对象： '+{{i}}</li>
+      </ul>
       <div class="imageSwipe">
         <image-swiper :image-swipe="topImages" :swipe-time="2000"/>
       </div>
@@ -24,16 +28,18 @@
 
     <style-choice :cart="cart"
                   :styleChoiceKey="styleChoiceKey"
-              :choiceShow="choiceShow"
-              class="styleChoice"
-              v-show="styleChoice"
-              @back="back" @addCart="addCartSure"/>
+                  :choiceShow="choiceShow"
+                  class="styleChoice"
+                  v-show="styleChoice"
+                  @back="back"
+                  @Buy="placeOrder"
+                  @addCart="addCartSure"/>
 
   </div>
 </template>
 
 <script>
-  import {getDetail, Goods, Shop, GoodsParam, getRecommend,addCart} from "../../network/detail";
+  import {getDetail, Goods, Shop, GoodsParam, getRecommend, addCart} from "../../network/detail";
 
   import CommentInfo from "./childComps/CommentInfo";
   import DetailNavBar from "./childComps/DetailNavBar";
@@ -48,7 +54,7 @@
   import Scroll from "../../components/common/scroll/Scroll";
   import GoodsList from "../../components/content/goods/GoodsList";
   import BackTop from "../../components/content/backTop/BackTop";
-  import styleChoice from "../../components/content/addCart/styleChoice";
+  import styleChoice from "./childComps/styleChoice/styleChoice";
 
   export default {
     name: "Detail",
@@ -83,10 +89,10 @@
         isShowBackTop: false,//是否显示返回顶部按钮
         detailTopYs: [],//标题对应的高度
         titleIndex: 0,
-        styleChoice:false,
-        styleChoiceKey:'cart',
-        cart:{},
-        choiceShow:{}
+        styleChoice: false,
+        styleChoiceKey: 'cart',
+        cart: {},
+        choiceShow: {}
       }
     },
     created() {
@@ -126,22 +132,28 @@
       })
     },
     methods: {
-      addCartSure(num, Show,choiceShow){
+      addCartSure(num, Show, choiceShow) {
         //1.获取购物车所需要展示的信息
         const orderGoods = {}
         orderGoods.iid = this.iid;
         orderGoods.num = num;
         orderGoods.Show = Show;
-        orderGoods.defaultShow = choiceShow
+        orderGoods.defaultShow = choiceShow;
         //2.将商品添加到购物车
-
+        // this.$store.cartList.push(orderGoods)
+        // this.$store.commit('addCart',orderGoods)
+        this.$store.dispatch('addCart',orderGoods)
+      },
+      placeOrder(){
+        //确认提交订单
+        this.styleChoice = false
       },
 
-      addCart(){
+      addCart() {
         this.styleChoice = true
         this.styleChoiceKey = 'cart'
       },
-      Buy(){
+      Buy() {
         this.styleChoice = true
         this.styleChoiceKey = 'buy'
         console.log(this.styleChoiceKey)
@@ -149,7 +161,7 @@
       // handelBack(){
       //   this.styleChoice = false
       // },
-      back(){
+      back() {
         this.styleChoice = false
       },
       titleClick(index) {
@@ -177,7 +189,6 @@
             this.titleIndex = i
             this.$refs.nav.currentIndex = this.titleIndex
           }
-
           //普通方法，比较复杂
           // if(this.titleIndex !== i &&
           //   ((i < length - 1 &&
@@ -194,13 +205,13 @@
         // 监听详情页穿着效果图片是否加载完
         this.$refs.detail.refresh();
         //标题点击事件所需要的高度
-       setTimeout(() =>{
-         this.detailTopYs.push(0)
-         this.detailTopYs.push(this.$refs.commentTop.$el.offsetTop)
-         this.detailTopYs.push(this.$refs.detailTop.$el.offsetTop)
-         this.detailTopYs.push(this.$refs.recommendTop.$el.offsetTop)
-         this.detailTopYs.push(Number.MAX_VALUE)
-       },100)
+        setTimeout(() => {
+          this.detailTopYs.push(0)
+          this.detailTopYs.push(this.$refs.commentTop.$el.offsetTop)
+          this.detailTopYs.push(this.$refs.detailTop.$el.offsetTop)
+          this.detailTopYs.push(this.$refs.recommendTop.$el.offsetTop)
+          this.detailTopYs.push(Number.MAX_VALUE)
+        }, 100)
       },
       LoadMore() {
         //上拉重新计数可滑动高度
@@ -237,7 +248,8 @@
     bottom: 0;
     z-index: 99;
   }
-  .styleChoice{
+
+  .styleChoice {
     position: absolute;
     left: 0;
     right: 0;

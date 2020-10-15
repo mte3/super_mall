@@ -2,9 +2,9 @@
 
   <div id="styleChoice">
     <div class="Selected">
-      <img :src="Show.img??choiceShow.img" alt="" @load="imageLoad">
+      <img :src="Show.img" alt="" @load="imageLoad">
       <div class="Selecteds">
-        <div class="price">{{Show.currency ??'￥'}}{{((Show.nowprice ??choiceShow.nowprice)/100).toFixed(2)}}</div>
+        <div class="price">{{Show.currency}}{{((Show.nowprice)/100).toFixed(2)}}</div>
         <p>库存充足</p>
         <!--        <div class="choices">已选：“ {{cart.size[sizeIndex].name}} ” “ {{cart.color[colorIndex].name}} ”</div>-->
         <div class="choiced">
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div @click="back" class="back">
-        <img src="../../../assets/img/detail/close.png" style="width: 16px;height: 16px" alt="">
+        <img src="../../../../assets/img/detail/close.png" style="width: 16px;height: 16px" alt="">
       </div>
     </div>
     <scroll ref="styleChoice"
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  import Scroll from "../../common/scroll/Scroll";
+  import Scroll from "../../../../components/common/scroll/Scroll";
 
   export default {
     name: "styleChoice",
@@ -92,19 +92,28 @@
         // goodOrder:[]
       }
     },
+    watch:{
+      choiceShow(){
+        this.Show = this.choiceShow
+      },
+      Show(){
+        console.log(this.Show)
+      }
+    },
     updated() {
       this.getShow()
-      this.$refs.styleChoice.refresh()
+      this.$refs.styleChoice.refresh();
     },
     methods: {
       handelSure() {
         //点击确认（购买/加入购物车）
         if (this.styleChoiceKey === 'cart') {
           // 加入购物车
-          this.$emit('addCart', this.num, this.Show,this.choiceShow)
+          this.$emit('addCart', this.num, this.Show, this.choiceShow)
+          this.num = 1
         } else {
           // 购买
-
+          this.$emit('Buy', this.num, this.Show, this.choiceShow)
         }
       },
       LoadMore() {
@@ -141,12 +150,13 @@
 
       getShow() {
         for (let i = 0; i < this.cart.show.length - 1; i++) {
-          if (this.cart.show[i].sizeId === this.sizeId) {
-            this.show = this.cart.show[i]
-            if (this.show.styleId === this.styleId) {
-              this.Show = this.show
-              break;
-            }
+          if (this.cart.show[i].sizeId === this.sizeId &&
+            this.cart.show[i].styleId===this.styleId) {
+            this.Show = this.cart.show[i]
+            // if (this.Show.styleId === this.styleId) {
+            //   this.Show = this.this.cart.show[i]
+            //   break;
+            // }
           }
         }
       },
