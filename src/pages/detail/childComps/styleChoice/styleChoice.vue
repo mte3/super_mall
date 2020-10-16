@@ -87,21 +87,19 @@
         l: 0,
         isSize: true,
         show: {},
+        sizeShow: [],
+        styleShow: [],
         Show: {},//已选（要传）
         num: 1,//购买数量（要传）
         // goodOrder:[]
       }
     },
-    watch:{
-      choiceShow(){
+    watch: {
+      choiceShow() {
         this.Show = this.choiceShow
       },
-      Show(){
-        console.log(this.Show)
-      }
     },
     updated() {
-      this.getShow()
       this.$refs.styleChoice.refresh();
     },
     methods: {
@@ -138,28 +136,26 @@
 
       choiceSize(s, indexS) {
         // 尺寸选择
-        this.sizeIndex = indexS
-        this.sizeId = s
+        this.sizeIndex = indexS;
+        this.sizeId = s;
+        this.getShow()
       },
-
       choiceColor(c, indexC) {
         // 颜色选择
         this.colorIndex = indexC
         this.styleId = c
+        this.getShow()
       },
-
       getShow() {
         for (let i = 0; i < this.cart.show.length - 1; i++) {
           if (this.cart.show[i].sizeId === this.sizeId &&
             this.cart.show[i].styleId===this.styleId) {
             this.Show = this.cart.show[i]
-            // if (this.Show.styleId === this.styleId) {
-            //   this.Show = this.this.cart.show[i]
-            //   break;
-            // }
           }
         }
+        console.log(this.Show)
       },
+
       back() {
         this.$emit('back')
       }
