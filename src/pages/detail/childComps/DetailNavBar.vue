@@ -1,7 +1,6 @@
 <template>
   <div>
     <nav-bar>
-
       <template v-slot:left>
         <div class="back" @click="handelBack">
           <img src="../../../assets/img/common/back.svg" alt="">
@@ -31,16 +30,16 @@
     },
     data() {
       return {
-        titles: ['商品', '评论',  '详情','推荐',],
+        titles: ['商品', '评论', '详情', '推荐',],
         currentIndex: 0
       }
     },
     methods: {
       handelTitle(index) {
         this.currentIndex = index;
-        this.$emit('titleClick',index)
+        this.$emit('titleClick', index)
       },
-      handelBack(){
+      handelBack() {
         //点击返回
         this.$router.go(-1)
       }
@@ -57,7 +56,8 @@
   .title {
     flex: 1;
   }
-  .back{
+
+  .back {
     padding-top: 6px;
   }
 

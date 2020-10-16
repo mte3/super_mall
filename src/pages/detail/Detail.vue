@@ -8,10 +8,6 @@
       :pull-up-load="true"
       id="scroll"
       ref="detail">
-      <div>{{$store.state.cartList.length}}</div>
-      <ul v-for="i in $store.state.cartList">
-        <li>'对象： '+{{i}}</li>
-      </ul>
       <div class="imageSwipe">
         <image-swiper :image-swipe="topImages" :swipe-time="2000"/>
       </div>

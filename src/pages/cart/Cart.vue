@@ -1,36 +1,51 @@
 <template>
-  <div>
-    <swipe :swipe="swipe" :swipe-time="1500"/>
+  <div id="cart">
+<!--    导航-->
+    <nav-bar class="title">
+      <template v-slot:center>
+        <div id="cartTitle">购物车({{length}})
+        </div>
+      </template>
+    </nav-bar>
+
+<!--    商品列表-->
+    <cart-list/>
+
+<!--    底部汇总-->
+
   </div>
 </template>
 
 <script>
-  import Swipe from "../../components/common/swiper/Swipe";
-  import {getImage} from "../../network/cart";
+  import {mapGetters} from 'vuex'
+  import NavBar from "../../components/common/navbar/NavBar";
+  import CartList from "./cartComps/CartList";
 
   export default {
-        name: "Cart",
-      components:{
-        Swipe,
-      },
-    data(){
-      return {
-        swipe:[]
-      }
+    name: "Cart",
+    components: {
+      NavBar,
+      CartList
     },
-    created() {
-          this.getImage();
+    computed: {
+      ...mapGetters({
+        length: 'cartLength'
+      })
     },
-    methods:{
-          getImage(){
-            getImage().then(data => {
-              this.swipe = data.data.banner.list;
-            })
-          },
-    }
-    }
+    data() {
+      return {}
+    },
+    methods: {}
+  }
 </script>
 
 <style scoped>
-
+  #cart{
+    height: 100vh;
+    width: 100%;
+  }
+  .title {
+    background-color: #ff5777;
+    color: white;
+  }
 </style>
