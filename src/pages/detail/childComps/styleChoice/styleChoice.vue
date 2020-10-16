@@ -76,7 +76,6 @@
         type: Object
       }
     },
-
     data() {
       return {
         showIndex: 0,
@@ -133,7 +132,6 @@
         //购买/加入购物车数量加一
         this.num++
       },
-
       choiceSize(s, indexS) {
         // 尺寸选择
         this.sizeIndex = indexS;
@@ -149,13 +147,12 @@
       getShow() {
         for (let i = 0; i < this.cart.show.length - 1; i++) {
           if (this.cart.show[i].sizeId === this.sizeId &&
-            this.cart.show[i].styleId===this.styleId) {
+            this.cart.show[i].styleId === this.styleId) {
             this.Show = this.cart.show[i]
           }
         }
         console.log(this.Show)
       },
-
       back() {
         this.$emit('back')
       }
@@ -219,7 +216,6 @@
     margin: 0 2px 0 2px;
     background-color: #e0dad5;
     padding: 6px 12px 6px 12px;
-
   }
 
   .Selected {
@@ -270,7 +266,6 @@
 
   .choiceSize {
     margin-bottom: 6px;
-
   }
 
   .choiced {
@@ -290,6 +285,5 @@
   }
 
   .back img {
-
   }
 </style>

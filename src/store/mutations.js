@@ -7,5 +7,13 @@ export default {
   },
   [ADD_TO_CART](state, payload) {
     state.cartList.push(payload)
+  },
+  addCartItemNum(state,index){
+    state.cartList[index].num++
+  },
+  subCartItemNum(state,index){
+    if(state.cartList[index].num>1){
+      state.cartList[index].num--
+    }
   }
 }

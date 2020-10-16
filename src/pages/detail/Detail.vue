@@ -98,6 +98,7 @@
       //2.根据iid请求详细数据
       getDetail(this.iid).then(data => {
         const res = data.result;
+        console.log(data.result)
         //1.获取轮播图图片
         this.topImages = res.itemInfo.topImages
 
@@ -133,8 +134,8 @@
         const orderGoods = {}
         orderGoods.iid = this.iid;
         orderGoods.num = num;
+        orderGoods.title = this.goods.title
         orderGoods.Show = Show;
-        orderGoods.defaultShow = choiceShow;
         //2.将商品添加到购物车
         // this.$store.cartList.push(orderGoods)
         // this.$store.commit('addCart',orderGoods)
