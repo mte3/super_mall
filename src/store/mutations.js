@@ -6,6 +6,7 @@ export default {
     payload.oldGood.num = payload.orderGoods.num + payload.oldGood.num
   },
   [ADD_TO_CART](state, payload) {
+    payload.checked = true
     state.cartList.push(payload)
   },
   addCartItemNum(state,index){
@@ -15,5 +16,10 @@ export default {
     if(state.cartList[index].num>1){
       state.cartList[index].num--
     }
+  },
+  handelCheck(state,index){
+    console.log(state.cartList[index].checked)
+    console.log(index)
+    state.cartList[index].checked = !state.cartList[index].checked
   }
 }

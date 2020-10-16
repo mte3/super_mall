@@ -12,7 +12,7 @@
     <cart-list/>
 
 <!--    底部汇总-->
-
+    <settlement/>
   </div>
 </template>
 
@@ -20,12 +20,14 @@
   import {mapGetters} from 'vuex'
   import NavBar from "../../components/common/navbar/NavBar";
   import CartList from "./cartComps/CartList";
+  import Settlement from "./cartComps/Settlement";
 
   export default {
     name: "Cart",
     components: {
       NavBar,
-      CartList
+      CartList,
+      Settlement
     },
     computed: {
       ...mapGetters({

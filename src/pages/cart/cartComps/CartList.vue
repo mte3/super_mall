@@ -38,6 +38,6 @@
     overflow: hidden;
     width: 100%;
     position: absolute;
-    height: calc(100% - 93px);
+    height: calc(100% - 138px);
   }
 </style>
