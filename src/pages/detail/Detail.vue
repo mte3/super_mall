@@ -52,6 +52,7 @@
   import BackTop from "../../components/content/backTop/BackTop";
   import styleChoice from "./childComps/styleChoice/styleChoice";
 
+  import {mapActions} from 'vuex'
   export default {
     name: "Detail",
     components: {
@@ -75,6 +76,7 @@
         topImages: [], //轮播图图片
         goods: {},//商品数据
         shop: {},//店铺数据
+        shopName:'',//店铺名
         detailInfo: {},//穿着效果数据
         img: {},//穿着效果图片
         parameter: {},//商品参数数据
@@ -106,6 +108,7 @@
         this.goods = new Goods(res.itemInfo, res.columns, res.shopInfo.services)
         //3.获取店铺信息
         this.shop = new Shop(res.shopInfo)
+        this.shopName = res.shopInfo.name
         //4.获取商品详细信息
         this.detailInfo = res.detailInfo.desc
         this.img = res.detailInfo.detailImage[0]
@@ -129,6 +132,9 @@
       })
     },
     methods: {
+      ...mapActions({
+        add:'addCart'
+      }),
       addCartSure(num, Show, choiceShow) {
         //1.获取购物车所需要展示的信息
         const orderGoods = {}
@@ -137,9 +143,11 @@
         orderGoods.title = this.goods.title
         orderGoods.Show = Show;
         //2.将商品添加到购物车
-        // this.$store.cartList.push(orderGoods)
         // this.$store.commit('addCart',orderGoods)
-        this.$store.dispatch('addCart',orderGoods)
+        this.add(orderGoods,this.shopName).then(res => {
+          console.log(res)
+        })
+
       },
       placeOrder(){
         //确认提交订单

@@ -1,6 +1,6 @@
 <template>
   <div id="cart">
-<!--    导航-->
+    <!--    导航-->
     <nav-bar class="title">
       <template v-slot:center>
         <div id="cartTitle">购物车({{length}})
@@ -8,10 +8,14 @@
       </template>
     </nav-bar>
 
-<!--    商品列表-->
-    <cart-list/>
+    <!--    商品列表-->
 
-<!--    底部汇总-->
+    <cart-list v-show="length !==0"/>
+
+    <div v-show="length ===0">购物车空空如也</div>
+
+
+    <!--    底部汇总-->
     <settlement/>
   </div>
 </template>
@@ -42,10 +46,11 @@
 </script>
 
 <style scoped>
-  #cart{
+  #cart {
     height: 100vh;
     width: 100%;
   }
+
   .title {
     background-color: #ff5777;
     color: white;

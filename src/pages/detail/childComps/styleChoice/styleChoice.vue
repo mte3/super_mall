@@ -106,11 +106,11 @@
         //点击确认（购买/加入购物车）
         if (this.styleChoiceKey === 'cart') {
           // 加入购物车
-          this.$emit('addCart', this.num, this.Show, this.choiceShow)
+          this.$emit('addCart', this.num, this.Show,)
           this.num = 1
         } else {
           // 购买
-          this.$emit('Buy', this.num, this.Show, this.choiceShow)
+          this.$emit('Buy', this.num, this.Show,)
         }
       },
       LoadMore() {
@@ -145,13 +145,16 @@
         this.getShow()
       },
       getShow() {
+        // this.Show = this.cart.show.find(function (i) {
+        //   return (this.cart.show[i].sizeId === this.sizeId &&
+        //     this.cart.show[i].styleId === this.styleId)
+        // })
         for (let i = 0; i < this.cart.show.length - 1; i++) {
           if (this.cart.show[i].sizeId === this.sizeId &&
             this.cart.show[i].styleId === this.styleId) {
             this.Show = this.cart.show[i]
           }
         }
-        console.log(this.Show)
       },
       back() {
         this.$emit('back')

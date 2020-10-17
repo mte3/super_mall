@@ -1,7 +1,9 @@
 <template>
   <div id="settlement">
-    <div class="check">
-      <CheckButton class="isAllCheck"/>
+    <div class="check"
+         @click="handelAll">
+      <CheckButton class="isAllCheck"
+                   :class="{isSettlementAll:isSettlementAll}" />
       <span>全选</span>
     </div>
     <div class="price">
@@ -24,10 +26,18 @@
     },
     computed: {
       ...mapGetters({
-        Price: 'Price',
-        Settlement:'Settlement'
+        Price: 'Price',//选中的总价
+        Settlement:'Settlement',//选中状态的个数
+        isSettlementAll:'isSettlementAll' ,//是否全部选中状态
       })
     },
+    methods:{
+      handelAll(){
+        this.$store.commit('handelAll',this.isSettlementAll)
+        // if (this.isSettlementAll){
+        // }
+      }
+    }
   }
 </script>
 
@@ -50,7 +60,9 @@
     width: 16px;
     height: 16px;
   }
-
+.isSettlementAll{
+  background-color: red;
+}
   .check {
     font-size: 14px;
     margin-top: 14px;
