@@ -64,7 +64,7 @@
 <style scoped>
   #goodItem {
     width: 100%;
-    margin-bottom: 8px;
+    margin-top: 8px;
     padding: 6px 8px 6px 6px;
     height: 120px;
     border-radius: 12px;

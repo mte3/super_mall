@@ -24,6 +24,11 @@
     components: {
       CheckButton
     },
+    props:{
+      length:{
+        type:Number
+      }
+    },
     computed: {
       ...mapGetters({
         Price: 'Price',//选中的总价
@@ -33,11 +38,19 @@
     },
     methods:{
       handelSettlement(){
+        console.log()
         if (this.Settlement===0){
-          this.$toast({
-            message:'购物车空空如也，快去逛逛把~~',
-            icon:'smile-o'
-          })
+          if (this.length){
+            this.$toast({
+              message:'还没有选中商品哦，亲~~',
+              // icon:'smile-o'
+            })
+          }else {
+            this.$toast({
+              message:'购物车空空如也，快去逛逛把~~',
+              icon:'smile-o'
+            })
+          }
         }else {
           //结算
         }
@@ -54,6 +67,7 @@
 <style scoped>
   #settlement {
     border-bottom: 1px solid #e6e6e6;
+    background-color: white;
     padding: 0 12px 0 12px;
     height: 44px;
     width: 100%;

@@ -100,7 +100,6 @@
       //2.根据iid请求详细数据
       getDetail(this.iid).then(data => {
         const res = data.result;
-        console.log(data.result)
         //1.获取轮播图图片
         this.topImages = res.itemInfo.topImages
 

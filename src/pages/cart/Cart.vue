@@ -16,7 +16,7 @@
 
 
     <!--    底部汇总-->
-    <settlement v-show="length !==0"/>
+    <settlement :length="length"/>
   </div>
 </template>
 

@@ -1,7 +1,13 @@
 <template>
   <div id="cartList">
-    <scroll class="cartList" ref="scroll">
+    <scroll class="cartList"
+            :pull-up-load="true"
+            :probe-type="3"
+            ref="scroll"
+            @pullingUp='LoadMore'>
       <cart-list-item v-for="(i,index) in list" :good="i" :index="index" :key="index"/>
+
+      <cart-recommend ref="recommend"/>
     </scroll>
 
   </div>
@@ -14,9 +20,12 @@
 
   import Scroll from "../../../components/common/scroll/Scroll";
 
+  import CartRecommend from "./CartRecommend";
+
   export default {
     name: "CartList",
     components: {
+      CartRecommend,
       Scroll,
       CartListItem
     },
@@ -27,6 +36,15 @@
     },
     activated() {
       this.$refs.scroll.refresh()
+    },
+    methods:{
+      LoadMore() {
+        //上拉加载更多
+        // this.$refs.recommend.getHomeGoods('sell')
+
+        //重新计数可滑动高度
+        this.$refs.scroll.refresh()
+      },
     }
   }
 </script>
@@ -40,4 +58,5 @@
     position: absolute;
     height: calc(100% - 138px);
   }
+
 </style>
