@@ -12,11 +12,11 @@
 
     <cart-list v-show="length !==0"/>
 
-    <div v-show="length ===0">购物车空空如也</div>
+    <cart-null v-show="length ===0"/>
 
 
     <!--    底部汇总-->
-    <settlement/>
+    <settlement v-show="length !==0"/>
   </div>
 </template>
 
@@ -25,11 +25,13 @@
   import NavBar from "../../components/common/navbar/NavBar";
   import CartList from "./cartComps/CartList";
   import Settlement from "./cartComps/Settlement";
+  import CartNull from "./cartComps/CartNull";
 
   export default {
     name: "Cart",
     components: {
       NavBar,
+      CartNull,
       CartList,
       Settlement
     },

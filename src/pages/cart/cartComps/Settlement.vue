@@ -10,7 +10,7 @@
       <span>合计：</span>
       <span class="allPrice">￥{{Price}}</span>
     </div>
-    <div class="settlement">
+    <div class="settlement" @click="handelSettlement">
       结算({{Settlement}})
     </div>
   </div>
@@ -32,6 +32,16 @@
       })
     },
     methods:{
+      handelSettlement(){
+        if (this.Settlement===0){
+          this.$toast({
+            message:'购物车空空如也，快去逛逛把~~',
+            icon:'smile-o'
+          })
+        }else {
+          //结算
+        }
+      },
       handelAll(){
         this.$store.commit('handelAll',this.isSettlementAll)
         // if (this.isSettlementAll){

@@ -6,7 +6,8 @@ import getters from "./getters";
 
 
 const state = {
-  cartList: [],//购物车列表
+  cartList: [],//购物车列表s
+  shopList:[]
 }
 export default createStore({
   state,

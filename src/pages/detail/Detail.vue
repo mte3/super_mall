@@ -145,7 +145,12 @@
         //2.将商品添加到购物车
         // this.$store.commit('addCart',orderGoods)
         this.add(orderGoods,this.shopName).then(res => {
-          console.log(res)
+          //提示加入购物车成功
+          this.$toast({
+            message:res,
+            icon:'success'
+          })
+          this.styleChoice = false
         })
 
       },
