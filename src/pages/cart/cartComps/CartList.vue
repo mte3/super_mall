@@ -5,6 +5,7 @@
             :probe-type="3"
             ref="scroll"
             @pullingUp='LoadMore'>
+      <div style="height: 12px"></div>
       <cart-list-item v-for="(i,index) in list" :good="i" :index="index" :key="index"/>
 
       <cart-recommend ref="recommend"/>

@@ -52,7 +52,6 @@
     height: 100vh;
     width: 100%;
   }
-
   .title {
     background-color: #ff5777;
     color: white;
