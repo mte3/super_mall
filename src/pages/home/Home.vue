@@ -75,6 +75,11 @@
           'new': {page: 0, list: []},
           'sell': {page: 0, list: []},
         },
+        tHeight:{
+          'pop':0,
+          'new':0,
+          'sell':0,
+        },
         currentType: 'pop',
         isShowTabControl: false,
       }
@@ -105,6 +110,24 @@
     },
     methods: {
       //事件监听相关方法
+      tabClick(index) {
+        switch (index) {
+          case 0:
+            this.currentType = 'pop'
+            break
+          case 1:
+            this.currentType = 'new'
+            break
+          case 2:
+            this.currentType = 'sell'
+            break
+        }
+        this.$nextTick(() => {
+          this.$refs.tabControlFirst.currentIndex = index;
+          this.$refs.tabControl.currentIndex = index;
+        })
+      },
+
       isBackTop() {
         //点击回到顶部
         this.$refs.scroll.scrollTo()
@@ -126,25 +149,6 @@
         this.isShowBackTop = (-position.y) > 1000;
         //tabControl是否吸顶
         this.isShowTabControl = (-position.y) > this.tabOffsetTop
-      },
-
-
-      tabClick(index) {
-        switch (index) {
-          case 0:
-            this.currentType = 'pop'
-            break
-          case 1:
-            this.currentType = 'new'
-            break
-          case 2:
-            this.currentType = 'sell'
-            break
-        }
-        this.$nextTick(() => {
-          this.$refs.tabControlFirst.currentIndex = index;
-          this.$refs.tabControl.currentIndex = index;
-        })
       },
 
       // 网络请求相关方法
