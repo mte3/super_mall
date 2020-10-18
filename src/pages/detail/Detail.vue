@@ -134,7 +134,7 @@
       ...mapActions({
         add:'addCart'
       }),
-      addCartSure(num, Show, choiceShow) {
+      addCartSure(num, Show,) {
         //1.获取购物车所需要展示的信息
         const orderGoods = {}
         orderGoods.iid = this.iid;
@@ -153,8 +153,12 @@
         })
 
       },
-      placeOrder(){
+      placeOrder(num,Show){
         //确认提交订单
+        this.$toast({
+          message:'页面还没有做好哦, 亲~',
+          icon:'smile-o'
+        })
         this.styleChoice = false
       },
 

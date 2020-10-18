@@ -184,11 +184,6 @@
     bottom: 49px;
     left: 0;
     right: 0;
-
-    /*!*方案二*!*/
-    /*height: calc(100%-93px);*/
-    /*overflow: hidden;*/
-    /*margin-top: 44px;*/
   }
 
   .tab-control {

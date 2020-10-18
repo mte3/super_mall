@@ -1,231 +1,136 @@
 <template>
-  <div class="wrapper">
-<!--    <h2>分类</h2>-->
-    <ul>
-      <li>111111</li>
-      <li>211111</li>
-      <li>311111</li>
-      <li>411111</li>
-      <li>511111</li>
-      <li>611111</li>
-      <li>711111</li>
-      <li>811111</li>
-      <li>911111</li>
-      <li>1011111</li>
-      <li>1111111</li>
-      <li>1211111</li>
-      <li>1311111</li>
-      <li>1411111</li>
-      <li>1511111</li>
-      <li>1611111</li>
-      <li>1711111</li>
-      <li>1811111</li>
-      <li>1911111</li>
-      <li>2011111</li>
-      <li>2111111</li>
-      <li>2211111</li>
-      <li>2311111</li>
-      <li>2411111</li>
-      <li>2511111</li>
-      <li>2611111</li>
-      <li>2711111</li>
-      <li>2811111</li>
-      <li>2911111</li>
-      <li>3011111</li>
-      <li>3111111</li>
-      <li>3211111</li>
-      <li>3311111</li>
-      <li>3411111</li>
-      <li>3511111</li>
-      <li>3611111</li>
-      <li>3711111</li>
-      <li>3811111</li>
-      <li>3911111</li>
-      <li>4011111</li>
-      <li>4111111</li>
-      <li>4211111</li>
-      <li>4311111</li>
-      <li>4411111</li>
-      <li>4511111</li>
-      <li>4611111</li>
-      <li>4711111</li>
-      <li>4811111</li>
-      <li>4911111</li>
-      <li>5011111</li>
-      <li>5111111</li>
-      <li>5211111</li>
-      <li>5311111</li>
-      <li>5411111</li>
-      <li>5511111</li>
-      <li>5611111</li>
-      <li>5711111</li>
-      <li>5811111</li>
-      <li>5911111</li>
-      <li>6011111</li>
-      <li>6111111</li>
-      <li>6211111</li>
-      <li>6311111</li>
-      <li>6411111</li>
-      <li>6511111</li>
-      <li>6611111</li>
-      <li>6711111</li>
-      <li>6811111</li>
-      <li>6911111</li>
-      <li>7011111</li>
-      <li>7111111</li>
-      <li>7211111</li>
-      <li>7311111</li>
-      <li>7411111</li>
-      <li>7511111</li>
-      <li>7611111</li>
-      <li>7711111</li>
-      <li>7811111</li>
-      <li>7911111</li>
-      <li>8011111</li>
-      <li>8111111</li>
-      <li>8211111</li>
-      <li>8311111</li>
-      <li>8411111</li>
-      <li>8511111</li>
-      <li>8611111</li>
-      <li>8711111</li>
-      <li>8811111</li>
-      <li>8911111</li>
-      <li>9011111</li>
-      <li>9111111</li>
-      <li>9211111</li>
-      <li>9311111</li>
-      <li>9411111</li>
-      <li>9511111</li>
-      <li>9611111</li>
-      <li>9711111</li>
-      <li>9811111</li>
-      <li>9911111</li>
-      <li>10011111</li>
-      <li>10111111</li>
-      <li>10211111</li>
-      <li>10311111</li>
-      <li>10411111</li>
-      <li>10511111</li>
-      <li>10611111</li>
-      <li>10711111</li>
-      <li>10811111</li>
-      <li>10911111</li>
-      <li>11011111</li>
-      <li>11111111</li>
-      <li>11211111</li>
-      <li>11311111</li>
-      <li>11411111</li>
-      <li>11511111</li>
-      <li>11611111</li>
-      <li>11711111</li>
-      <li>11811111</li>
-      <li>11911111</li>
-      <li>12011111</li>
-      <li>12111111</li>
-      <li>12211111</li>
-      <li>12311111</li>
-      <li>12411111</li>
-      <li>12511111</li>
-      <li>12611111</li>
-      <li>12711111</li>
-      <li>12811111</li>
-      <li>12911111</li>
-      <li>13011111</li>
-      <li>13111111</li>
-      <li>13211111</li>
-      <li>13311111</li>
-      <li>13411111</li>
-      <li>13511111</li>
-      <li>13611111</li>
-      <li>13711111</li>
-      <li>13811111</li>
-      <li>13911111</li>
-      <li>14011111</li>
-      <li>14111111</li>
-      <li>14211111</li>
-      <li>14311111</li>
-      <li>14411111</li>
-      <li>14511111</li>
-      <li>14611111</li>
-      <li>14711111</li>
-      <li>11011111</li>
-      <li>11111111</li>
-      <li>11211111</li>
-      <li>11311111</li>
-      <li>11411111</li>
-      <li>11511111</li>
-      <li>11611111</li>
-      <li>11711111</li>
-      <li>11811111</li>
-      <li>11911111</li>
-      <li>12011111</li>
-      <li>12111111</li>
-      <li>12211111</li>
-      <li>12311111</li>
-      <li>12411111</li>
-      <li>12511111</li>
-      <li>12611111</li>
-      <li>12711111</li>
-      <li>12811111</li>
-      <li>12911111</li>
-      <li>13011111</li>
-      <li>13111111</li>
-      <li>13211111</li>
-      <li>13311111</li>
-      <li>13411111</li>
-      <li>13511111</li>
-      <li>13611111</li>
-      <li>13711111</li>
-      <li>13811111</li>
-      <li>13911111</li>
-      <li>14011111</li>
-      <li>14111111</li>
-      <li>14211111</li>
-      <li>14311111</li>
-      <li>14411111</li>
-      <li>14511111</li>
-      <li>14611111</li>
-      <li>14711111</li>
-
-
-    </ul>
+  <div class="category">
+    <nav-bar class="title">
+      <template v-slot:center>
+        <div id="cartTitle">分类
+        </div>
+      </template>
+    </nav-bar>
+    <title-list @handelTitle='handelTitle' :titleList='titleList'/>
+    <div class="cTitle">{{title}}</div>
+    <scroll class="scroll"
+            ref="scroll"
+            :probe-type="3"
+            :pull-up-load="true"
+            @pullingUp='LoadMore'>
+      <goods-list class="rightList" :goods="showGoods"/>
+    </scroll>
   </div>
 </template>
 
 <script>
-  import BScroll from 'better-scroll'
-    export default {
-        name: "Category",
-      data(){
-        return {
-          scroll:null
-        }
+  import {getCategory,} from "../../network/category";
+
+  import NavBar from "../../components/common/navbar/NavBar";
+  import GoodsList from "../../components/content/goods/GoodsList";
+  import Scroll from "../../components/common/scroll/Scroll";
+
+  import TitleList from "./cComps/TitleList";
+  import {getHomeGoods} from "../../network/home";
+
+  export default {
+    name: "Category",
+    components: {
+      Scroll,
+      NavBar,
+      TitleList,
+      GoodsList
+    },
+    data() {
+      return {
+        goods: {
+          'pop': {page: 0, list: []},
+        },
+        titleList: [],
+        keyList: [],
+        title: '正在流行',
+        key: '3627',
+        miniKey: '10062603',
+      }
+    },
+    computed: {
+      showGoods() {
+        //父传子--goods
+        return this.goods['pop'].list
       },
-      mounted() {
-          this.scroll = new BScroll(document.querySelector('.wrapper'), {
-            probeType:3,
-            pullUpLoad:true
-          })
-        this.scroll.on('scroll',(position) => {
-          //监听滑动位置
-          // console.log(position)
+    },
+    created() {
+      this.getCategory()
+      this.getHomeGoods('pop')
+      console.log(this.goods)
+    },
+    methods: {
+      //
+      handelTitle(K, T, M) {
+        this.title = T;//获取点击的类标题
+        this.key = K;//获取maitKey
+        this.miniKey = M;//获取miniKey
+      },
+      LoadMore() {
+        //上拉加载更多
+        this.getHomeGoods('pop')
+        //重新计数可滑动高度
+        this.$refs.scroll.refresh()
+      },
+
+      //网络请求
+      getCategory() {
+        // 请求分类标题
+        getCategory().then(res => {
+          console.log(res)
+          this.titleList = res.data.category.list
         })
-        this.scroll.on('pullingUp',() =>{
-          console.log('上拉加载更多');
-          setTimeout(() => {
-            this.scroll.finishPullUp()
-          },3000)
+      },
+      getHomeGoods(type) {
+        const page = this.goods[type].page + 1
+        getHomeGoods(type, page).then(res => {
+          this.goods[type].list.push(...res.data.list);
+          this.goods[type].page += 1
+          //多次上拉加载更多
+          this.$refs.scroll.finishPullUp()
         })
       }
     }
+  }
 </script>
 
 <style scoped>
-.wrapper{
-  height: 200px;
-  background-color: red;
-  overflow: hidden;
+  .scroll{
+    position: absolute;
+    top: 86px;
+    left: 30%;
+    width: 70%;
+    height: calc(100% - 135px);
+  }
+  .category {
+    height: 100vh;
+    width: 100%;
+  }
 
-}
+  .title {
+    width: 100%;
+    position: absolute;
+    z-index: 99;
+    background-color: #ff5777;
+    color: white;
+  }
+
+  .cTitle {
+    background-color: white;
+    z-index: 99;
+    width: 70%;
+    text-align: center;
+    position: absolute;
+    line-height: 42px;
+    top: 44px;
+    left: 30%;
+  }
+
+  /*.rightList {*/
+  /*  margin-top: 42px;*/
+  /*  width: 70%;*/
+  /*  left: 30%;*/
+  /*  position: absolute;*/
+  /*}*/
+
 </style>
