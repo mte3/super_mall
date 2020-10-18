@@ -80,7 +80,7 @@
 
   .btn {
     margin: 16px 0 24px calc(50% - 40px);
-    width: 80px;
+    width: 88px;
     text-align: center;
     padding: 8px 12px;
     border: 1px grey solid;

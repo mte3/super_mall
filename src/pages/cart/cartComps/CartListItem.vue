@@ -63,8 +63,9 @@
 
 <style scoped>
   #goodItem {
+    margin-bottom: 12px;
     width: 100%;
-    padding: 6px 8px 6px 6px;
+    padding: 6px 8px 8px 6px;
     height: 120px;
     border-radius: 12px;
     background-color: white;

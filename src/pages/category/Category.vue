@@ -116,6 +116,8 @@
   }
 
   .cTitle {
+    border-left: 3px solid #ff8198;
+    font-size: 16px;
     background-color: white;
     z-index: 99;
     width: 70%;

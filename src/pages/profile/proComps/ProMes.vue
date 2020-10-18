@@ -7,7 +7,7 @@
       </div>
       <div class="name">
         <h4>今晚早点睡</h4>
-        <div>成长分 1200</div>
+        <div class="fen">成长分 1200</div>
       </div>
       <div class="icon setting">
         <van-icon name="setting-o" size="24" color="white"/>
@@ -28,13 +28,13 @@
 <script>
   export default {
     name: "ProMes",
-    data(){
-      return{
-        handList:[
-          {title:'商品收藏',num:226},
-          {title:'店铺关注',num:0},
-          {title:'喜欢内容',num:98},
-          {title:'浏览记录',num:556},
+    data() {
+      return {
+        handList: [
+          {title: '商品收藏', num: 226},
+          {title: '店铺关注', num: 0},
+          {title: '喜欢内容', num: 98},
+          {title: '浏览记录', num: 556},
         ]
       }
     }
@@ -64,7 +64,9 @@
     width: calc(100% - 164px);
   }
 
-  .name div {width: 91px;
+  .name div {
+    text-align: center;
+    width: 102px;
     font-size: 12px;
     background-color: grey;
     line-height: 18px;
@@ -72,14 +74,19 @@
     padding: 0 12px;
     border-radius: 8px;
   }
+  .name h4{
+    font-size: 16px;
+  }
 
   .handPro {
     display: flex;
   }
-  .handList{
+
+  .handList {
     display: flex;
   }
-  .handListItem{
+
+  .handListItem {
     text-align: center;
     padding-top: 12px;
     font-size: 14px;
