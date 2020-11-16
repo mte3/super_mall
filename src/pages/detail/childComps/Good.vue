@@ -15,8 +15,6 @@
         <div>{{i.name}}</div>
       </div>
     </div>
-
-
   </div>
 </template>
 

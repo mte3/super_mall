@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="handelGood">
-    <img :src="shopImages" alt="" >
+    <img :src="shopImages" alt="">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -20,9 +20,9 @@
         }
       }
     },
-    computed:{
-      shopImages(){
-        return this.goodsItem.image ||this.goodsItem.show.img
+    computed: {
+      shopImages() {
+        return this.goodsItem.image || this.goodsItem.show.img
       }
     },
     // @load="imageLoad"
@@ -32,9 +32,9 @@
     //   }
     // }
 
-    methods:{
-      handelGood(){
-        this.$router.push('/detail/'+this.goodsItem.iid)
+    methods: {
+      handelGood() {
+        this.$router.push('/detail/' + this.goodsItem.iid)
       }
     }
   }

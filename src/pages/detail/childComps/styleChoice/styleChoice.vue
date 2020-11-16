@@ -6,8 +6,7 @@
       <div class="Selecteds">
         <div class="price">{{Show.currency}}{{((Show.nowprice)/100).toFixed(2)}}</div>
         <p>库存充足</p>
-        <!--        <div class="choices">已选：“ {{cart.size[sizeIndex].name}} ” “ {{cart.color[colorIndex].name}} ”</div>-->
-        <div class="choiced">
+       <div class="choiced">
           <div class="choiceSize" v-show="sizeIndex===index" v-for="(i,index) in cart.size">已选：{{i.name}}</div>
           <div v-show="colorIndex===index" v-for="(i,index) in cart.color">{{i.name}}</div>
         </div>

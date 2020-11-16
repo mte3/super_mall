@@ -33,15 +33,11 @@
     },
     data() {
       return {
-        moveRatio:0,
-        totalWidth: 0,
         showIndex: 0,
         swiper: null,
         isLoad: true,
-        scrolling: false, // 是否正在滚动
-        startX:0 ,//开始位置
-        endX:0,
-        X:0
+        startX: 0,//开始位置
+        endX: 0,
       }
     },
     methods: {
@@ -52,7 +48,24 @@
           this.isLoad = false
         }
       },
-      goSwipe() {
+      goSwipe(e) {
+        if (e) {
+          this.endX = e.changedTouches[0].pageX
+          let X = this.startX - this.endX
+          if (X > 50) {
+            this.showIndex += 1
+            if (this.showIndex === this.swipe.length) {
+              this.showIndex = 0
+            }
+          } else if (X < -50) {
+            if (this.showIndex === 0) {
+              this.showIndex = this.swipe.length
+            }
+            this.showIndex -= 1
+          }
+        }
+
+
         //轮播图计时器
         this.swiper = setInterval(() => {
           this.showIndex++;
@@ -61,7 +74,10 @@
           }
         }, this.swipeTime);
       },
-      clearGoSwipe() {
+      clearGoSwipe(e) {
+        if (e) {
+          this.startX = e.touches[0].pageX
+        }
         //清楚计时器（鼠标在轮播图上）
         clearInterval(this.swiper)
       },
@@ -73,17 +89,19 @@
 </script>
 
 <style scoped>
-  .swipe img{
+  .swipe img {
     width: 100%;
   }
 
-  #swipe{
+  #swipe {
     position: relative;
     overflow: hidden;
   }
-  .swipe{
+
+  .swipe {
     display: flex;
   }
+
   .list {
     margin: 0 4px 0 4px;
     width: 8px;
@@ -93,6 +111,7 @@
     background-color: white;
     border-radius: 4px;
   }
+
   .spanList {
     display: flex;
     justify-content: center;
@@ -100,6 +119,7 @@
     width: 100%;
     bottom: 8px;
   }
+
   .active {
     background-color: #ff5777;
   }

@@ -4,7 +4,7 @@
       <img :src="i" alt=""
            ref="swipe"
            class="swipeImage"
-           v-show="showIndex ==index"
+           v-show="showIndex ===index"
            :key="index"
            @touchstart="clearGoSwipe"
            @touchend="goSwipe" @load="imageLoad">

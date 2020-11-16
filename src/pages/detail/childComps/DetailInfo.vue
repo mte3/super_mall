@@ -30,7 +30,7 @@
             if(++this.num === this.imgLength){
               this.$emit('imageLoad')
             }
-          }
+          },
       },
       watch:{
           detailInfo(){

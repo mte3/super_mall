@@ -47,10 +47,10 @@
     props: {
       shop: {}
     },
-    data(){
-      return{
-        fans:0,
-        sells:0
+    data() {
+      return {
+        fans: 0,
+        sells: 0
       }
     },
     watch: {
@@ -59,9 +59,9 @@
         this.sells = this.shop.sells
       },
     },
-    methods:{
-      getNum(e){
-        return e>9999? (e/10000).toFixed(1)+'万':e;
+    methods: {
+      getNum(e) {
+        return e > 9999 ? (e / 10000).toFixed(1) + '万' : e;
       }
     }
   }

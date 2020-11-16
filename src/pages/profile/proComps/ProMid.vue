@@ -47,12 +47,12 @@
           '退还/售后',
           '我的订单',
         ],
-        midList:[
-          {title:'金币',num:2269},
-          {title:'优惠卷',num:12},
-          {title:'贷款',num:10000.00},
-          {title:'小金库',num:0.00},
-          {title:'我的钱包',num:0.00},
+        midList: [
+          {title: '金币', num: 2269},
+          {title: '优惠卷', num: 12},
+          {title: '贷款', num: 10000.00},
+          {title: '小金库', num: 0.00},
+          {title: '我的钱包', num: 0.00},
         ]
 
       }
@@ -61,20 +61,23 @@
 </script>
 
 <style scoped>
-  #proMids{
+  #proMids {
 
   }
+
   .proMid {
     padding: 0 4px;
     margin: 16px;
     border-radius: 8px;
     background-color: white;
   }
-.num{
-  font-size: 14px;
-  color: black;
-  padding: 12px 0 8px 0;
-}
+
+  .num {
+    font-size: 14px;
+    color: black;
+    padding: 12px 0 8px 0;
+  }
+
   .content {
     display: flex;
   }
