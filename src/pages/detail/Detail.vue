@@ -44,13 +44,12 @@
   import DetailInfo from "./childComps/DetailInfo";
   import GoodParams from "./childComps/GoodParams";
   import GoodsAction from "./childComps/GoodsAction";
-
+  import styleChoice from "./childComps/styleChoice/styleChoice";
   import ImageSwiper from "../../components/common/swiper/ImageSwiper";
   import Swipe from "../../components/common/swiper/Swipe";
   import Scroll from "../../components/common/scroll/Scroll";
   import GoodsList from "../../components/content/goods/GoodsList";
   import BackTop from "../../components/content/backTop/BackTop";
-  import styleChoice from "./childComps/styleChoice/styleChoice";
 
   import {mapActions} from 'vuex'
   export default {

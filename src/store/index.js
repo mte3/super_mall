@@ -11,9 +11,9 @@ const state = {
 }
 export default createStore({
   state,
-  mutations,
-  actions,
-  getters,
+  mutations,//修改state的唯一途径，同步操作
+  actions,//进行异步操作
+  getters,//类似于计算属性
   modules: {
     //模块化开发
   }

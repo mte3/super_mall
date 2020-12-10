@@ -103,7 +103,7 @@
   }
 
   .list {
-    margin: 0 4px 0 4px;
+    margin: 0 4px;
     width: 8px;
     height: 8px;
     float: left;

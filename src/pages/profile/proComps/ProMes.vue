@@ -68,7 +68,7 @@
     text-align: center;
     width: 102px;
     font-size: 12px;
-    background-color: grey;
+    background-color: rgba(250,250,250,.2);
     line-height: 18px;
     margin-top: 8px;
     padding: 0 12px;
